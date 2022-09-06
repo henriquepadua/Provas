@@ -13,77 +13,55 @@ A saída consiste em um valor racional, seguido de um sinal de igualdade e outro
 import java.util.Scanner;
 
 class TADRacional{
-    public static int realizaPrimeiraOperacao(int n1,int d1,int n2,int d2,String sinal2){
-      int resp = 0;
-      if(sinal2.equals("+")){
-        resp = (n1*d2+n2*d1);
-      }
-      else if(sinal2.equals("-")){
-        resp = (n1*d2-n2*d1);
-      }
-      else if(sinal2.equals("/")){
-        resp = (n1*d2);
-      }
-      else{
-        resp = (n1*n2);
-      }
-        return resp;
+    public static int realizaPrimeiraOperacao(int n1,int d1,int n2,int d2,String sinal){
+      if(sinal.equals("+")) n1 = (n1*d2+n2*d1);
+      
+      else if(sinal.equals("-")) n1 = (n1*d2-n2*d1);
+      
+      else if(sinal.equals("/")) n1 = (n1*d2);
+      
+      else n1 = (n1*n2);
+      
+        return n1;
     }
 
-    public static int realizaSegundaOperacao(int n1,int d1,int n2,int d2,String sinal){
-      int resp = 0;
-      System.out.println("n2-> " + n2 + "d2-> " + n2);
+    public static int realizaSegundaOperacao(int n1,int d1,int n2,int d2,String sinal){     
+      if(sinal.equals("+")) n1 = (d1*d2);
       
-      if(sinal.equals("+")){
-        resp = (d1*d2);
-      }
-      else if(sinal.equals("-")){
-        resp = (d1*d2);
-      }
-      else if(sinal.equals("/")){
-        resp = (n2*d1);
-      }
-      else{
-        resp = (d1*d2);
-      }
-
-      return resp;
+      else if(sinal.equals("-")) n1 = (d1*d2);
+      
+      else if(sinal.equals("/")) n1 = (n2*d1);
+      
+      else n1 = (d1*d2);
+      
+      return n1;
     }
 
     public static void main(String[] args){
-        int n1 = 0,n2 = 0,n3 = 0,n4 = 0,Noperacoes;
-        String sinal1 = "",sinal2 = "",sinal3 = "";
+        int Noperacoes; int[] array = new int[8]; String[] sinal = new String[8];
 
         Scanner sc = new Scanner(System.in);
 
         Noperacoes = sc.nextInt();
         for(int i = 0; i < Noperacoes; i++){
-          n1 = sc.nextInt();  
-          sinal1 = sc.next();
-          n2 = sc.nextInt();
-
-          sinal2 = sc.next();
-          n3 = sc.nextInt();
-          sinal3 = sc.next();
-          n4 = sc.nextInt();
+          array[i] = sc.nextInt(); sinal[i] = sc.next(); array[i+1] = sc.nextInt();
+          sinal[i+1] = sc.next();  array[i+2] = sc.nextInt(); sinal[i+2] = sc.next();
+          array[i+3] = sc.nextInt();
                    
-          int primeiraOperacao = realizaPrimeiraOperacao(n1,n2,n3,n4,sinal2);
-          int segundaOperacao = realizaSegundaOperacao(n1,n2,n3,n4,sinal2);
+          int primeiraOperacao = realizaPrimeiraOperacao(array[i],array[i+1],array[i+2],array[i+3],sinal[i+1]);
+          int segundaOperacao = realizaSegundaOperacao(array[i],array[i+1],array[i+2],array[i+3],sinal[i+1]);
           System.out.print(primeiraOperacao + "/" + segundaOperacao + " = " );
 
           if(primeiraOperacao %6 == 0 && segundaOperacao %6 == 0){
-            primeiraOperacao = primeiraOperacao / 6;
-            segundaOperacao  = segundaOperacao  / 6;
+            primeiraOperacao = primeiraOperacao / 6; segundaOperacao  = segundaOperacao  / 6;
           }
 
           else if(primeiraOperacao %3 == 0 && segundaOperacao %3 == 0){
-            primeiraOperacao = primeiraOperacao / 3;
-            segundaOperacao  = segundaOperacao  / 3;
+            primeiraOperacao = primeiraOperacao / 3; segundaOperacao  = segundaOperacao  / 3;
           }
 
           else if(primeiraOperacao %2 == 0 && segundaOperacao %2 == 0){
-            primeiraOperacao = primeiraOperacao / 2;
-            segundaOperacao  = segundaOperacao  / 2;
+            primeiraOperacao = primeiraOperacao / 2; segundaOperacao  = segundaOperacao  / 2;
           }
 
            System.out.println(primeiraOperacao + "/" + segundaOperacao);
