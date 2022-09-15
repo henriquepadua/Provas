@@ -333,13 +333,19 @@ class Lista{
 
 //classe Principal
 class QT3{
-    public static String ToString(Date data){
-     /* int dia = data.getHours();
-      int mes = data.getMonth();
-      int ano = data.getYear();
-      System.out.println(dia + "/" + mes + "/" + ano);*/
+    public static void ordena(Filme[] filmes,ArrayList<Filme> pegando){
+      for(int j = 1; j < pegando.size() ; j++){
+        Filme tmp = filmes[j];
+        String primeiroformatado = filmes[j].sdf.format(filmes[j].getDatadelancamento());
+        int k = j - 1;
+        String segundoformatado = filmes[k].sdf.format(filmes[k].getDatadelancamento());
 
-      return "/" + "asd" + "/";
+        while((k >= 0) && (segundoformatado.compareTo(primeiroformatado)< 0)){
+          filmes[k + 1] = filmes[k];
+          k--;
+        }
+          filmes[k + 1] = tmp;
+      }
     }
     public static void main(String[] args){
      Scanner sc = new Scanner(System.in);
@@ -363,22 +369,22 @@ class QT3{
          e.getMessage();
        }
      }
-
      
-    for(int j = 0; j < pegando.size();j++){
+    for(int j = 1; j < pegando.size() ; j++){
       String primeiroformatado = filmes[j].sdf.format(filmes[j].getDatadelancamento());
+      int k = j - 1;
+      String segundoformatado = filmes[k].sdf.format(filmes[k].getDatadelancamento());
 
-      if(filmes[j+1] != null){
-        String segundoformatado = filmes[j+1].sdf.format(filmes[j+1].getDatadelancamento());     
-        if(primeiroformatado.compareTo(segundoformatado) > 0){
-          filmes[j].imprimir();
-          filmes[j+1].imprimir();
-        }
-        else{
-          filmes[j+1].imprimir();
-          filmes[j].imprimir();
-        }
+      while((k >= 0) && (segundoformatado.compareTo(primeiroformatado)< 0)){
+        filmes[k + 1] = filmes[k];
+        k--;
       }
-    } 
-  }
+        filmes[k + 1] = filmes[k];
+    }
+
+    for(int l = 0; l < pegando.size() - 1; i++){
+      ordena(filmes, pegando);
+      System.out.println(filmes[l].imprimir());
+    }
+  } 
 }
