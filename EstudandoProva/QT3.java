@@ -274,61 +274,7 @@ class Filme{
 
 }//fechando a classe Filmes
 
-class Lista{
-    private Filme[] array;
-    private int n;
- 
-    public Lista () {
-       this(1000);
-    }
-    
-    public Lista (int tamanho){
-       array = new Filme[tamanho];
-       n = 0;
-    }
 
-    public void inserir(Filme x, int pos) throws Exception {
-        //validar insercao
-        if(n >= array.length || pos < 0 || pos > n){
-            throw new Exception("Erro ao inserir!");
-        }
-
-        //levar elementos para o fim do array
-        for(int i = n; i > pos; i--){
-            array[i] = array[i-1];
-        }
-
-        array[pos] = x;
-        n++;
-    }
-
-    public void sort() {
-		for (int i = 1; i < n; i++) {
-		    Filme tmp = array[i];
-            int j = i - 1;
-
-         while ((j >= 0) && (array[j].getDatadelancamento().compareTo(tmp.getDatadelancamento())<0)) {
-            array[j + 1] = array[j];
-            j--;
-         }
-         array[j + 1] = tmp;
-      }
-	}
-
-    public void swap(int i, int j) {
-        Filme temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-
-    public void mostrar (){
-      for(int i = 0; i < n; i++){
-          System.out.print(array[i].imprimir() + "\n");
-      }
-    }
-    
-    
-}
 
 
 //classe Principal
