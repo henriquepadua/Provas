@@ -336,17 +336,17 @@ class QT3{
     public static void ordena(Filme[] filmes,ArrayList<Filme> pegando){
       for(int j = 1; j < pegando.size() ; j++){
         Filme tmp = filmes[j];
-        String primeiroformatado = filmes[j].sdf.format(filmes[j].getDatadelancamento());
         int k = j - 1;
-        String segundoformatado = filmes[k].sdf.format(filmes[k].getDatadelancamento());
 
-        while((k >= 0) && (segundoformatado.compareTo(primeiroformatado)< 0)){
+        while((k >= 0) && (filmes[k].getDatadelancamento().compareTo(tmp.getDatadelancamento()) > 0)){
           filmes[k + 1] = filmes[k];
           k--;
         }
-          filmes[k + 1] = tmp;
+        
+        filmes[k + 1] = tmp;
       }
     }
+
     public static void main(String[] args){
      Scanner sc = new Scanner(System.in);
      String[] leitura = new String[1000];
@@ -369,22 +369,28 @@ class QT3{
          e.getMessage();
        }
      }
-     
-    for(int j = 1; j < pegando.size() ; j++){
-      String primeiroformatado = filmes[j].sdf.format(filmes[j].getDatadelancamento());
-      int k = j - 1;
-      String segundoformatado = filmes[k].sdf.format(filmes[k].getDatadelancamento());
 
-      while((k >= 0) && (segundoformatado.compareTo(primeiroformatado)< 0)){
-        filmes[k + 1] = filmes[k];
-        k--;
+      System.out.println("Antes da ordenacao");
+      for(int l = 0;l < filmes.length ;l++){
+        System.out.println(filmes[l].imprimir());
       }
-        filmes[k + 1] = filmes[k];
-    }
 
-    for(int l = 0; l < pegando.size() - 1; i++){
-      ordena(filmes, pegando);
-      System.out.println(filmes[l].imprimir());
-    }
-  } 
+      System.out.println("-----------------------------------");
+      System.out.println("Depois da ordenacao");
+      ordena(filmes, pegando);    
+
+      //Remove os filmes do arraylist para não haver colisão
+      pegando.removeAll(pegando);
+
+      //Adiciona os filmes ordenados no arraylist
+      for(int l = 0;l < filmes.length ;l++){
+        pegando.add(l, filmes[l]);
+      }
+
+      //Mostra os filmes ordenados
+      Iterator<Filme> filme = pegando.iterator();
+      while(filme.hasNext()){
+        System.out.println(filme.next().imprimir());
+      }
+  }
 }
