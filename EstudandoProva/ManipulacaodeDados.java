@@ -24,7 +24,7 @@ class ManipulacaodeDados{
         if(possuiInteiros(extrair) == true){
             if(extrair.contains("°C")){
                byte[] teste = extrair.getBytes("US-ASCII");
-               System.out.println(teste.); 
+               System.out.println(teste); 
             }
         }
     }
