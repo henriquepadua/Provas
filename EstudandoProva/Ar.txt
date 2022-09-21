@@ -1,4 +1,10 @@
 inicio:
+X=C;
+Y=6;
+W=AB;
+X=A;
+Y=3;
+W=AoB;
 X=0;
 X=1;
 X=3;
