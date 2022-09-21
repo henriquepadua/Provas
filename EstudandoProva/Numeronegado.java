@@ -2,30 +2,6 @@ import java.io.*;
 import java.util.*;
 
 class Numeronegado{
-    public static String converteHexa(String numeroHexa){
-        numeroHexa = numeroHexa.replaceAll( "10","A");
-        numeroHexa = numeroHexa.replaceAll( "11","B");
-        numeroHexa = numeroHexa.replaceAll( "12","C");
-        numeroHexa = numeroHexa.replaceAll( "13","D");
-        numeroHexa = numeroHexa.replaceAll( "14","E");
-        numeroHexa = numeroHexa.replaceAll( "15","F");
-
-           return numeroHexa;
-    }
-
-
-    public static String converteDecimal(String numeroHexa){
-        numeroHexa = numeroHexa.replaceAll("A", "10");
-        numeroHexa = numeroHexa.replaceAll("B", "11");
-        numeroHexa = numeroHexa.replaceAll("C", "12");
-        numeroHexa = numeroHexa.replaceAll("D", "13");
-        numeroHexa = numeroHexa.replaceAll("E", "14");
-        numeroHexa = numeroHexa.replaceAll("F", "15");
-
-           return numeroHexa;
-    }
-
-
     public static void main(String[] args) throws FileNotFoundException{
         Scanner sc = new Scanner(new FileReader("Ar.txt"));
         int X = 0,Y = 0,W = 0;
@@ -240,9 +216,6 @@ class Numeronegado{
 
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }                   
-
-
-                    
                   }
                 }
             }finally{}
