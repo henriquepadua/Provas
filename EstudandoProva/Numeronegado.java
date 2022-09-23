@@ -4,6 +4,7 @@ import java.util.*;
 class Numeronegado{
     public static void main(String[] args) throws FileNotFoundException{
         Scanner sc = new Scanner(new FileReader("Ar.txt"));
+        RandomAccessFile raf= new RandomAccessFile("Ar.hex","rw");
         int X = 0,Y = 0,W = 0;
 
         try{
@@ -36,6 +37,7 @@ class Numeronegado{
                         codigo = 0;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -48,6 +50,7 @@ class Numeronegado{
                         codigo = 1;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -60,6 +63,7 @@ class Numeronegado{
                         codigo = 2;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -71,6 +75,7 @@ class Numeronegado{
                         codigo = 3;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -83,6 +88,7 @@ class Numeronegado{
                         codigo = 4;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -95,6 +101,7 @@ class Numeronegado{
                         codigo = 5;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -107,6 +114,7 @@ class Numeronegado{
                         codigo = 6;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -119,6 +127,7 @@ class Numeronegado{
                         codigo = 7;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -131,6 +140,7 @@ class Numeronegado{
                         codigo = 8;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -143,6 +153,7 @@ class Numeronegado{
                         codigo = 9;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -155,6 +166,7 @@ class Numeronegado{
                         codigo = 10;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");        
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -167,6 +179,7 @@ class Numeronegado{
                         codigo = 11;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -178,6 +191,7 @@ class Numeronegado{
                         codigo = 12;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -190,6 +204,7 @@ class Numeronegado{
                         codigo = 13;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }
 
@@ -202,6 +217,7 @@ class Numeronegado{
                         codigo = 14;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }                    
 
@@ -214,10 +230,13 @@ class Numeronegado{
                         codigo = 15;
                         String hexacodigo = Integer.toHexString(codigo).toUpperCase();
 
+                        raf.writeUTF(hexaX + hexaY + hexacodigo + "\n");
                         System.out.println(hexaX + hexaY + hexacodigo);
                     }                   
                   }
                 }
-            }finally{}
+            }catch(IOException e){
+                System.out.println("Erro na escrita");
+            }
     }
 }
