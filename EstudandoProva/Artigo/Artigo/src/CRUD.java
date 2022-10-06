@@ -5,6 +5,7 @@ public class CRUD{
     Scanner sc = new Scanner(System.in);
     
     int controle;
+    File file;
     RandomAccessFile raf;
     public int idConta;
     public String nomeUsuario;
@@ -33,12 +34,13 @@ public class CRUD{
     }
 
     public void conectarCRUD(int i) throws FileNotFoundException {
-        this.raf = new RandomAccessFile("Arquivo.txt","rw");
+        this.file = new File("Arquivo.txt");
+        this.raf = new RandomAccessFile(file,"rws");
     }
 
     @Override
     public String toString(){
-        String mostrada = "[idConta= " + idConta + " nomeUsuario= " + nomeUsuario + " contadorEmail= " + contadorEmail + " nomePessoa= " + nomePessoa + " senha= " + senha + " cpf= " + cpf + "cidade= " + cidade + " transferenciasRealizadas= " + transferenciasRealizadas + " saldoConta " + saldoConta;
+        String mostrada = "[idConta= " + idConta + " nomeUsuario= " + nomeUsuario + " contadorEmail= " + contadorEmail + " nomePessoa= " + nomePessoa + " senha= " + senha + " cpf= " + cpf + " cidade= " + cidade + " transferenciasRealizadas= " + transferenciasRealizadas + " saldoConta= " + saldoConta;
         System.out.print(mostrada);  
         for(int i = 0;i < email.length;i++){
           if(email[i] == null){
@@ -56,24 +58,14 @@ public class CRUD{
     }
 
     public void Create(CRUD crud) throws IOException{
-       if(controle == 0){ crud.conectarCRUD(0); }
-       raf.seek(0);
-       if(raf.length() != 0){
-        //System.out.println(Digite o ultimo );
-        //crud.Read(crud.idConta-1);
-       }  
-
-       raf.write(crud.idConta);
-       System.out.println(crud.idConta);
-       raf.seek(1);
-       for(int i = 0; i < email.length;i++){
-        if(email[i] == null){
-
-        }else{
-           raf.writeChars(crud.toString());
-           raf.writeUTF("\n");
-        }
+       this.file = new File("Arquivo.txt");
+       if(!file.exists()){ file.createNewFile(); }      
+       this.raf = new RandomAccessFile(file,"rws");
+       
+       while(raf.getFilePointer() < raf.length()){
+          raf.writeChars(crud.nomePessoa);
+          String leitura = raf.readUTF();
+          System.out.println(leitura);         
        }
-        controle++;
     }
 }
