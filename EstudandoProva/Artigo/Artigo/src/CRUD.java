@@ -7,6 +7,8 @@ public class CRUD{
     int controle;
     File file;
     RandomAccessFile raf;
+    public char lapide;
+    public int tamanho;
     public int idConta;
     public String nomeUsuario;
     public String[] email;
@@ -19,6 +21,8 @@ public class CRUD{
     public float saldoConta;
 
     public CRUD() throws IOException {
+        this.lapide = 0;
+        this.tamanho = 0;
         this.controle = 0;
         this.idConta = 0;
         this.nomeUsuario = "";
@@ -43,9 +47,9 @@ public class CRUD{
         System.out.print(mostrada);  
         for(int i = 0;i < email.length;i++){
           if(email[i] == null){
-           mostrada = "";
+           mostrada = ""; mostrada = mostrada.trim();
           }else{
-            mostrada = " email["+i+ "]= "+ email[i];
+            mostrada = email[i];
           }
           
           System.out.print(mostrada);  
@@ -62,9 +66,10 @@ public class CRUD{
        raf.seek(0);
        raf.writeInt(crud.idConta);
        raf.seek(raf.length());
-       raf.writeChar(' ');
+       raf.writeChar(crud.lapide = ' ');
+       raf.writeInt(crud.tamanho);
        raf.writeUTF(crud.toString());
     }
 
-    //public int Read(int ID){}
+    
 }

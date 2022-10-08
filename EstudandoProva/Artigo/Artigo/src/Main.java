@@ -20,11 +20,37 @@ public class Main{
         }
     }
 
-    /*public static CRUD leituraDados(CRUD crud,Scanner sc){
+    public static int leituraDados(CRUD crud,Scanner sc,int contadorEmail){
         System.out.println("Digite o nome do usuario");
-        crud.nomeUsuario = sc.nextLine();
-          return crud;
-    }*/
+        String tmp = "";
+        tmp = crud.nomeUsuario = sc.next();
+        if(crud.email[contadorEmail] != ""){
+            System.out.println("Digite seu email");
+            crud.email[contadorEmail] = crud.email[contadorEmail] = sc.next(); 
+            tmp = tmp + crud.email[contadorEmail];
+            contadorEmail++;
+            crud.contadorEmail = contadorEmail;
+         }
+
+         System.out.println("Digite o nome da pessoa");
+         crud.nomePessoa = crud.nomePessoa = sc.next();
+         tmp = tmp + crud.nomePessoa;
+
+         System.out.println("Digite seu CPF");
+         while(crud.cpf.length() != 11){
+            System.out.println("CPF invalido");
+            System.out.println("Digite um CPF valido");
+            crud.cpf = sc.next();
+        } 
+         tmp = tmp + crud.cpf;
+
+         tmp = tmp + Integer.toString(crud.transferenciasRealizadas = 0);
+         System.out.println("Digite o saldo da sua conta");
+         tmp = tmp + Float.toString(crud.saldoConta = sc.nextFloat());
+         System.out.println(tmp);
+
+          return tmp.length();
+    }
 
     public static void operacoesPossiveis(){
         System.out.println("Digite 1 para criar uma contabancaria");
@@ -32,6 +58,7 @@ public class Main{
         System.out.println("Digite 3 para Realizar uma tranferencia");
         System.out.println("Digite 4 para Atualizar os dados bancarios");
         System.out.println("Digite 5 para Deletar sua conta bancaria");
+        System.out.println("Digite 6 para Sair");
     }
 
     public static void main(String[] args) throws Exception {
@@ -42,23 +69,24 @@ public class Main{
         
         operacoesPossiveis();       
         opcao = sc.nextInt();
-        
-        operacao: 
-        switch(opcao){
-            case 1:
-            CRUD crud = new CRUD();
-            crud.nomeUsuario = sc.next();
-            if(crud.email[contadorEmail] != ""){
-               crud.email[contadorEmail] = sc.next(); contadorEmail++;
-            }
-            
-            System.out.println(crud.idConta);
-            System.out.println(crud.toString()); 
-            ClearConsole();
-            operacoesPossiveis();
-            opcao = sc.nextInt();
 
-            break operacao;
+        while(!(opcao >= 6)){
+            switch(opcao){
+                case 1:
+                CRUD crud = new CRUD();
+                crud.idConta = -1;
+
+                crud.tamanho = leituraDados(crud, sc, contadorEmail);   
+                System.out.println(crud.tamanho);             
+                ClearConsole();
+
+                crud.Create(crud);
+                operacoesPossiveis();
+                opcao = sc.nextInt();
+
+                break;
+            }
         }
+        
     }
 }
