@@ -6,6 +6,7 @@ public class CRUD{
     
     int controle;
     File file;
+    byte[] Object;
     RandomAccessFile raf;
     public char lapide;
     public int tamanho;
@@ -43,24 +44,23 @@ public class CRUD{
 
     @Override
     public String toString(){
-        String mostrada =  nomeUsuario + contadorEmail +  nomePessoa + senha + cpf  + transferenciasRealizadas  + saldoConta ;
-        System.out.print(mostrada);  
+        String mostrada = idConta + nomeUsuario + contadorEmail +  nomePessoa + senha + cpf  + transferenciasRealizadas  + saldoConta ;
+ 
         for(int i = 0;i < email.length;i++){
           if(email[i] == null){
            mostrada = ""; mostrada = mostrada.trim();
           }else{
-            mostrada = email[i];
+            mostrada = mostrada + email[i];
           }
-          
           System.out.print(mostrada);  
         }
-          System.out.println();
 
            return mostrada;
     }
-
-    public void Create(CRUD crud) throws IOException{
+    
+    public int Create(CRUD crud) throws IOException{
        raf.seek(0);
+
        int ultimoId = raf.readInt();
        crud.idConta = ultimoId + 1;
        raf.seek(0);
@@ -68,8 +68,10 @@ public class CRUD{
        raf.seek(raf.length());
        raf.writeChar(crud.lapide = ' ');
        raf.writeInt(crud.tamanho);
-       raf.writeUTF(crud.toString());
-    }
+       raf.write(crud.Object);
+
+       return 0; 
+    }  
 
     
 }

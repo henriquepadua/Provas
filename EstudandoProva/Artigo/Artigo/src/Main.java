@@ -2,6 +2,8 @@ import java.util.*;
 //import java.io.*;
 
 public class Main{
+    public static byte[] Dados;
+
     public static void ClearConsole(){
         try{
             String operatingSystem = System.getProperty("os.name"); //Check the current operating system
@@ -20,7 +22,7 @@ public class Main{
         }
     }
 
-    public static int leituraDados(CRUD crud,Scanner sc,int contadorEmail){
+    public static String leituraDados(CRUD crud,Scanner sc,int contadorEmail){
         System.out.println("Digite o nome do usuario");
         String tmp = "";
         tmp = crud.nomeUsuario = sc.next();
@@ -37,19 +39,32 @@ public class Main{
          tmp = tmp + crud.nomePessoa;
 
          System.out.println("Digite seu CPF");
+         crud.cpf = sc.next();
          while(crud.cpf.length() != 11){
             System.out.println("CPF invalido");
             System.out.println("Digite um CPF valido");
             crud.cpf = sc.next();
-        } 
+         } 
          tmp = tmp + crud.cpf;
 
          tmp = tmp + Integer.toString(crud.transferenciasRealizadas = 0);
          System.out.println("Digite o saldo da sua conta");
          tmp = tmp + Float.toString(crud.saldoConta = sc.nextFloat());
-         System.out.println(tmp);
 
-          return tmp.length();
+         Dados = tranformandoDados(tmp);
+         System.out.println(tmp);
+         System.out.println(Dados);
+
+
+          return tmp;
+    }
+
+    public static byte[] tranformandoDados(String tmp){
+        java.io.ByteArrayOutputStream byteout = new java.io.ByteArrayOutputStream();
+        byte[] dados = tmp.getBytes();
+        dados = byteout.toByteArray();
+        
+            return dados;
     }
 
     public static void operacoesPossiveis(){
@@ -76,8 +91,9 @@ public class Main{
                 CRUD crud = new CRUD();
                 crud.idConta = -1;
 
-                crud.tamanho = leituraDados(crud, sc, contadorEmail);   
-                System.out.println(crud.tamanho);             
+                String Dados = leituraDados(crud, sc, contadorEmail);   
+                crud.tamanho = Dados.length();
+                crud.Object = tranformandoDados(Dados);
                 ClearConsole();
 
                 crud.Create(crud);
@@ -85,6 +101,9 @@ public class Main{
                 opcao = sc.nextInt();
 
                 break;
+
+                case 2:
+
             }
         }
         
