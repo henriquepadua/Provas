@@ -5,6 +5,8 @@ public class CRUD{
     Scanner sc = new Scanner(System.in);
     
     int controle;
+    long pos;
+    boolean encontrou;
     File file;
     byte[] Object;
     RandomAccessFile raf;
@@ -22,6 +24,8 @@ public class CRUD{
     public float saldoConta;
 
     public CRUD() throws IOException {
+        this.encontrou = false;
+        this.pos = 0;
         this.lapide = 0;
         this.tamanho = 0;
         this.controle = 0;
@@ -57,6 +61,25 @@ public class CRUD{
 
            return mostrada;
     }
+
+    public int procurandoPrimeiroRegistro(int ID){
+      int pos = -1;
+      List <CRUD> Lcrud = new LinkedList <CRUD>();
+      CRUD crud = null;
+      Iterator<CRUD> Icrud = Lcrud.iterator();
+
+      while(Icrud.hasNext()){
+        crud = Icrud.next();
+        if(crud.lapide != '*'){
+          if(crud.idConta == ID){
+            pos = crud.idConta;
+            encontrou = true;
+            return pos;
+          } 
+        }
+      }
+       return pos;  
+    }
     
     public int Create(CRUD crud) throws IOException{
        raf.seek(0);
@@ -70,8 +93,26 @@ public class CRUD{
        raf.writeInt(crud.tamanho);
        raf.write(crud.Object);
 
-       return 0; 
+       return ultimoId; 
     }  
 
-    
+    public CRUD Read(int ID) throws IOException{
+      long pos = -1;
+      List <CRUD> Lcrud = new LinkedList <CRUD>();
+      CRUD crud = null;
+      Iterator<CRUD> Icrud = Lcrud.iterator();
+
+      while(Icrud.hasNext()){
+        crud = Icrud.next();
+        if(crud.lapide != '*'){
+          if(crud.idConta == ID){
+            pos = crud.idConta;
+            return crud;
+          } 
+        }  
+      }
+       return crud;// objeto vazio null
+    }
+
+
 }

@@ -1,10 +1,12 @@
-import java.util.*;
 //import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main{
-    public static byte[] Dados;
+    public static byte[] Dados;// armazena os dados do objeto
 
-    public static void ClearConsole(){
+    public static void ClearConsole(){// funcao para limpar a tela assim que realizar uma das operacoes do CRUD
         try{
             String operatingSystem = System.getProperty("os.name"); //Check the current operating system
               
@@ -77,6 +79,8 @@ public class Main{
     }
 
     public static void main(String[] args) throws Exception {
+        CRUD crud;
+        List<CRUD> LCRUD = new LinkedList<>();
         Scanner sc = new Scanner(System.in);
         int contadorEmail = 0;
         int opcao = 0;
@@ -86,9 +90,9 @@ public class Main{
         opcao = sc.nextInt();
 
         while(!(opcao >= 6)){
+            crud = new CRUD();
             switch(opcao){
                 case 1:
-                CRUD crud = new CRUD();
                 crud.idConta = -1;
 
                 String Dados = leituraDados(crud, sc, contadorEmail);   
@@ -96,14 +100,26 @@ public class Main{
                 crud.Object = tranformandoDados(Dados);
                 ClearConsole();
 
+                System.out.println(crud.toString());
                 crud.Create(crud);
+                LCRUD.add(crud);
+
                 operacoesPossiveis();
                 opcao = sc.nextInt();
 
                 break;
 
                 case 2:
+                System.out.println("Digite qual objeto deseja ler");
+                int Id = sc.nextInt();
+                crud = crud.Read(Id);
+                System.out.println(crud.toString());
 
+                ClearConsole();
+                operacoesPossiveis();
+                opcao = sc.nextInt();
+
+                break;
             }
         }
         
