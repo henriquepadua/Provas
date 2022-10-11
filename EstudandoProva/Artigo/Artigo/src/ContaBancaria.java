@@ -1,3 +1,7 @@
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class ContaBancaria {
     public int ultimoID;
     public char lapide;
@@ -26,4 +30,19 @@ public class ContaBancaria {
         this.transferenciasRealizadas = 0;
         this.saldoConta = 0;     
     }   
+
+    public byte[] tranformandoDados() throws IOException{
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(baos);
+
+        dos.writeUTF(nomePessoa);
+        dos.writeUTF(nomeUsuario);
+        dos.writeUTF(senha);
+        dos.writeUTF(cpf);
+        dos.writeUTF(cidade);
+        dos.writeInt(transferenciasRealizadas);
+        dos.writeFloat(saldoConta);
+
+        return baos.toByteArray();
+    }
 }

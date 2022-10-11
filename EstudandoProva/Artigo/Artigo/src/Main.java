@@ -1,10 +1,3 @@
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -85,10 +78,9 @@ public class Main{
     public static void operacoesPossiveis(){
         System.out.println("Digite 1 para criar uma contabancaria");
         System.out.println("Digite 2 para ler dados da sua conta");
-        System.out.println("Digite 3 para mostrar contas criada ");
-        System.out.println("Digite 4 para Atualizar os dados bancarios");
-        System.out.println("Digite 5 para Deletar sua conta bancaria");
-        System.out.println("Digite 6 para Sair");
+        System.out.println("Digite 3 para Atualizar os dados bancarios");
+        System.out.println("Digite 4 para Deletar sua conta bancaria");
+        System.out.println("Digite 5 para Sair");
     }
 
     public static void main(String[] args) throws Exception {
@@ -119,7 +111,6 @@ public class Main{
                 case 2:
                 System.out.println("Digite qual objeto deseja ler");
                 int Id = sc.nextInt();
-                ContaBancaria cb;
 
                 crud.Read(Id);  
 
@@ -130,7 +121,12 @@ public class Main{
                 break;
 
                 case 3:
+                System.out.println("Digite qual onjeto desejar Atualizar");
+                crud = new CRUD();
+                crud.Update(crud);
+
                 
+
             }
         }       
     }
