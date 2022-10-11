@@ -1,3 +1,8 @@
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -5,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main{
-    public static byte[] Dados;// armazena os dados do objeto
+ //   public static byte[] Dados;// armazena os dados do objeto
     public static int pos;
     public static List<Integer> LCRUD = new LinkedList<>();
     public static List<CRUD> crud = new LinkedList<>();
@@ -30,20 +35,27 @@ public class Main{
     }
 
     public static String leituraDados(CRUD crud,Scanner sc,int contadorEmail){
-        System.out.println("Digite o nome do usuario");
         String tmp = "";
-        tmp = crud.nomeUsuario = sc.next();
+
+        System.out.println("Digite seu nome");
+        crud.nomePessoa = crud.nomePessoa = sc.next();
+        tmp = tmp + crud.nomePessoa;
+
         if(crud.email[contadorEmail] != ""){
             System.out.println("Digite seu email");
             crud.email[contadorEmail] = crud.email[contadorEmail] = sc.next(); 
             tmp = tmp + crud.email[contadorEmail];
+
             contadorEmail++;
             crud.contadorEmail = contadorEmail;
          }
 
-         System.out.println("Digite o nome da pessoa");
-         crud.nomePessoa = crud.nomePessoa = sc.next();
-         tmp = tmp + crud.nomePessoa;
+         System.out.println("Digite seu Usuario ");  
+         crud.nomeUsuario =  crud.nomeUsuario = sc.next();
+         tmp = tmp + crud.nomeUsuario;
+
+         System.out.println("Digite sua senha");
+         crud.senha = crud.senha = sc.next(); 
 
          System.out.println("Digite seu CPF");
          crud.cpf = sc.next();
@@ -55,6 +67,10 @@ public class Main{
 
          tmp = tmp + crud.cpf;
 
+         System.out.println("Digite a cidade onde mora");
+         crud.cidade = crud.cidade = sc.next();
+         tmp = tmp + crud.cidade;
+
          tmp = tmp + Integer.toString(crud.transferenciasRealizadas = 0);
          System.out.println("Digite o saldo da sua conta");
          tmp = tmp + Float.toString(crud.saldoConta = sc.nextFloat());
@@ -62,9 +78,9 @@ public class Main{
           return tmp;
     }
 
-    public static byte[] tranformandoDados(String tmp) throws UnsupportedEncodingException{
+    /*public static byte[] tranformandoDados(String tmp) throws UnsupportedEncodingException{
         return tmp.getBytes("UTF-8");
-    }
+    }*/   
 
     public static void operacoesPossiveis(){
         System.out.println("Digite 1 para criar uma contabancaria");
@@ -78,7 +94,7 @@ public class Main{
     public static void main(String[] args) throws Exception {
         CRUD crud;
         Scanner sc = new Scanner(System.in);
-        int contadorEmail = 0,idCriado = 0;
+        int contadorEmail = 0;
         int opcao = 0;
 
         operacoesPossiveis();       
@@ -91,16 +107,9 @@ public class Main{
                 crud.idConta = -1;
 
                 crud.Dados = leituraDados(crud, sc, contadorEmail);   
-                crud.Dados = crud.idConta + crud.Dados;
                 crud.Create(crud);
 
-                //crud.tamanho = crud.Dados.length();
-                //crud.Object = tranformandoDados(crud.Dados);
-                //System.out.println(crud.Object);
                 //ClearConsole();
-
-                //idCriado = crud.Create(crud);
-                //LCRUD.add(idCriado);
 
                 operacoesPossiveis();
                 opcao = sc.nextInt();
@@ -110,23 +119,18 @@ public class Main{
                 case 2:
                 System.out.println("Digite qual objeto deseja ler");
                 int Id = sc.nextInt();
+                ContaBancaria cb;
 
-                System.out.println(crud.Read(Id));  
+                crud.Read(Id);  
 
-                //ClearConsole();
-                System.out.println(crud.toString());      
+                //ClearConsole(); 
                 operacoesPossiveis();
                 opcao = sc.nextInt();
 
                 break;
 
                 case 3:
-                Iterator<CRUD> Icrud = Main.crud.iterator();
-
-                System.out.println(Icrud.next().idConta);
-                while(Icrud.hasNext()){
-                    System.out.println(Icrud.next().idConta);
-                }
+                
             }
         }       
     }

@@ -1,4 +1,5 @@
 public class ContaBancaria {
+    public int ultimoID;
     public char lapide;
     public int tamanho;
     public int idConta;

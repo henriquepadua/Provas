@@ -1,16 +1,12 @@
-import java.util.*;
 import java.io.*;
 
 public class CRUD extends ContaBancaria{   
-    //int controle;
-    int ultimoID;
     String Dados;
     File file;
     byte[] Object;
     RandomAccessFile raf;
 
     public CRUD() throws IOException {
-      //  this.encontrou = false;
         this.file = new File("Arquivo.txt");
         if(!file.exists()){
          file.createNewFile(); 
@@ -21,53 +17,63 @@ public class CRUD extends ContaBancaria{
 
     @Override
     public String toString(){
-      String mostrada = ultimoID + nomeUsuario + contadorEmail +  nomePessoa + senha + cpf  + transferenciasRealizadas  + saldoConta ;
- 
-        for(int i = 0;i < email.length;i++){
-          if(email[i] == null){
-           mostrada = ""; mostrada = mostrada.trim();
-          }else{
-            mostrada = mostrada + email[i];
-          }
-          System.out.print(mostrada);  
+      String mostrada = ultimoID + nomePessoa ;
+      for(int i = 0;i < email.length;i++){
+        if(email[i] == null){
+         mostrada = ""; mostrada = mostrada.trim();
+        }else{
+          mostrada += email[i];
         }
+        System.out.print(mostrada);  
+      }
+
+      mostrada += nomeUsuario + senha + cpf + cidade + transferenciasRealizadas  + saldoConta ;       
 
            return mostrada;
     }
 
-    /*public int procurandoPrimeiroRegistro(int ID){
-      int pos = -1;
-      List <CRUD> Lcrud = new LinkedList <CRUD>();
-      CRUD crud = null;
-      Iterator<CRUD> Icrud = Lcrud.iterator();
+    public byte[] tranformandoDados(String tmp) throws IOException{
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(baos);
 
-      while(Icrud.hasNext()){
-        crud = Icrud.next();
-        if(crud.lapide != '*'){
-          if(crud.idConta == ID){
-            pos = crud.idConta;
-            encontrou = true;
-            return pos;
-          } 
-        }
-      }
-       return pos;  
-    }*/
-    
+        System.out.println("email " + email[0]);
+        //String mostrarEmail = "";
+        dos.writeUTF(nomePessoa);       
+        dos.writeUTF(senha);
+
+        return baos.toByteArray();
+    }
+
+    public ContaBancaria inversaoDados(byte[] dados) throws IOException{
+        ContaBancaria cb = new ContaBancaria();
+
+        ByteArrayInputStream bais = new ByteArrayInputStream(dados);
+        DataInputStream dis = new DataInputStream(bais);
+
+        cb.nomePessoa = dis.readUTF();
+        cb.senha = dis.readUTF();
+        //cb.email[contadorEmail] = dis.readUTF();
+
+        return cb;
+    }
+   
     public int Create(CRUD crud) throws IOException{
        raf.seek(0);
 
        this.ultimoID = raf.readInt();
        crud.idConta = this.ultimoID + 1;
        raf.seek(0);
+
        raf.writeInt(crud.idConta);
        raf.seek(raf.length());
        raf.writeChar(crud.lapide = ' ');
-       Dados = ultimoID + Dados;
-       crud.Object = Main.tranformandoDados(Dados);
-       crud.tamanho = Dados.length();
-       raf.writeInt(crud.tamanho);
 
+       System.out.println(Dados);
+       crud.Object = tranformandoDados(Dados);
+       crud.tamanho = Dados.length();
+
+       raf.writeInt(crud.tamanho);
+       raf.writeInt(ultimoID);
        raf.write(crud.Object);
 
        Main.crud.add(crud);
@@ -75,17 +81,36 @@ public class CRUD extends ContaBancaria{
        return this.ultimoID; 
     }  
 
-    public String Read(int ID) throws IOException{
-      ContaBancaria cb = null;
-      raf.seek(0);
-      int ultimoId = raf.readInt();
-      
-      //String nomeusuario = raf.readChar();
-      //System.out.println(ultimoId + nomeusuario);
+    public ContaBancaria Read(int ID) throws IOException{
+      ContaBancaria cb = new ContaBancaria();
+      raf.seek(4);
 
-      //cb.lapide = raf.readChar(); 
-      //System.out.println(cb.lapide);
+      char lapide = raf.readChar();
+      while(raf.getFilePointer() < raf.length()){
 
-      return "OK";
-    }
+        if(lapide == ' '){
+          int tamanho = raf.readInt();
+          
+          byte[] objeto = new byte[tamanho];
+          int id = raf.readInt();
+
+          if(id == ID) { 
+            cb.idConta = id;
+
+            raf.read(objeto);
+
+            cb = inversaoDados(objeto);
+            System.out.println(cb.nomePessoa);
+
+            return cb;
+          }
+
+          raf.read(objeto);
+          lapide = raf.readChar();
+
+        }
+      }
+
+        return cb = null;
+    }  
 }
