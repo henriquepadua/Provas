@@ -106,7 +106,7 @@ public class CRUD extends ContaBancaria{
 
             return cb;
           }
-          
+
           crud.idConta = cb.idConta = id;
           crud.nomePessoa = cb.nomePessoa = raf.readUTF();
 
@@ -144,12 +144,19 @@ public class CRUD extends ContaBancaria{
           
           if(id == cb.idConta){
             cb.idConta = id;
-
+            if(conta.length <= tamanho){
+              raf.write(conta);
+              resp =  true;
+            }else{
+              lapide = '*';
+              raf.seek(raf.length());
+              raf.write(conta);
+              resp = true;
+            }
+            return resp;
           }
-
         } 
-        
       } 
-      return resp;
+        return resp;
   }
 }
