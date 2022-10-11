@@ -36,10 +36,13 @@ public class CRUD extends ContaBancaria{
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
 
-        System.out.println("email " + email[0]);
-        //String mostrarEmail = "";
         dos.writeUTF(nomePessoa);       
+        dos.writeUTF(email[contadorEmail - 1]); contadorEmail++;
         dos.writeUTF(senha);
+        dos.writeUTF(cpf);
+        dos.writeUTF(cidade);
+        dos.writeInt(transferenciasRealizadas = 0);
+        dos.writeFloat(saldoConta);
 
         return baos.toByteArray();
     }
@@ -49,10 +52,14 @@ public class CRUD extends ContaBancaria{
 
         ByteArrayInputStream bais = new ByteArrayInputStream(dados);
         DataInputStream dis = new DataInputStream(bais);
-
+       
         cb.nomePessoa = dis.readUTF();
+        cb.email[contadorEmail ] = dis.readUTF();
         cb.senha = dis.readUTF();
-        //cb.email[contadorEmail] = dis.readUTF();
+        cb.cpf = dis.readUTF();
+        cb.cidade = dis.readUTF();
+        cb.transferenciasRealizadas = dis.readInt();
+        cb.saldoConta = dis.readFloat();
 
         return cb;
     }
@@ -74,15 +81,20 @@ public class CRUD extends ContaBancaria{
 
        raf.writeInt(crud.tamanho);
        raf.writeInt(ultimoID);
-       raf.write(crud.Object);
-
-       Main.crud.add(crud);
+       raf.writeUTF(nomePessoa);
+       raf.writeUTF(nomeUsuario);
+       raf.writeUTF(senha);
+       raf.writeUTF(cpf);
+       raf.writeUTF(cidade);
+       raf.writeInt(transferenciasRealizadas);
+       raf.writeFloat(saldoConta);
 
        return this.ultimoID; 
     }  
 
     public ContaBancaria Read(int ID) throws IOException{
       ContaBancaria cb = new ContaBancaria();
+      CRUD crud = new CRUD();
       raf.seek(4);
 
       char lapide = raf.readChar();
@@ -91,21 +103,23 @@ public class CRUD extends ContaBancaria{
         if(lapide == ' '){
           int tamanho = raf.readInt();
           
-          byte[] objeto = new byte[tamanho];
           int id = raf.readInt();
 
           if(id == ID) { 
-            cb.idConta = id;
+            crud.idConta = cb.idConta = id;
+            crud.nomePessoa = cb.nomePessoa = raf.readUTF();
+            crud.nomeUsuario = cb.nomeUsuario = raf.readUTF();
+            crud.senha = cb.senha = raf.readUTF();
+            crud.cpf = cb.cpf = raf.readUTF();
+            crud.cidade = cb.cidade = raf.readUTF();
+            crud.transferenciasRealizadas = cb.transferenciasRealizadas = raf.readInt();
+            crud.saldoConta = cb.saldoConta = raf.readFloat();
 
-            raf.read(objeto);
-
-            cb = inversaoDados(objeto);
-            System.out.println(cb.nomePessoa);
+            System.out.println(crud.toString());
 
             return cb;
           }
 
-          raf.read(objeto);
           lapide = raf.readChar();
 
         }

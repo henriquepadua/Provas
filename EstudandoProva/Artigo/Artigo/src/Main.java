@@ -109,7 +109,7 @@ public class Main{
                 crud.Dados = leituraDados(crud, sc, contadorEmail);   
                 crud.Create(crud);
 
-                //ClearConsole();
+                ClearConsole();
 
                 operacoesPossiveis();
                 opcao = sc.nextInt();
