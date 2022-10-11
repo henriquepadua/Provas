@@ -1,43 +1,16 @@
 import java.util.*;
 import java.io.*;
 
-public class CRUD{
-    Scanner sc = new Scanner(System.in);
-    
-    int controle;
-    long pos;
-    boolean encontrou;
+public class CRUD extends ContaBancaria{   
+    //int controle;
+    int ultimoID;
+    String Dados;
     File file;
     byte[] Object;
     RandomAccessFile raf;
-    public char lapide;
-    public int tamanho;
-    public int idConta;
-    public String nomeUsuario;
-    public String[] email;
-    public int contadorEmail;
-    public String nomePessoa;
-    public String senha;
-    public String cpf;
-    public String cidade;
-    public int transferenciasRealizadas;
-    public float saldoConta;
 
     public CRUD() throws IOException {
-        this.encontrou = false;
-        this.pos = 0;
-        this.lapide = 0;
-        this.tamanho = 0;
-        this.controle = 0;
-        this.idConta = 0;
-        this.nomeUsuario = "";
-        email = new String[100];
-        this.nomePessoa = "";
-        this.senha = "";
-        this.cpf = "";
-        this.cidade = "";
-        this.transferenciasRealizadas = 0;
-        this.saldoConta = 0;
+      //  this.encontrou = false;
         this.file = new File("Arquivo.txt");
         if(!file.exists()){
          file.createNewFile(); 
@@ -48,7 +21,7 @@ public class CRUD{
 
     @Override
     public String toString(){
-        String mostrada = idConta + nomeUsuario + contadorEmail +  nomePessoa + senha + cpf  + transferenciasRealizadas  + saldoConta ;
+      String mostrada = ultimoID + nomeUsuario + contadorEmail +  nomePessoa + senha + cpf  + transferenciasRealizadas  + saldoConta ;
  
         for(int i = 0;i < email.length;i++){
           if(email[i] == null){
@@ -62,7 +35,7 @@ public class CRUD{
            return mostrada;
     }
 
-    public int procurandoPrimeiroRegistro(int ID){
+    /*public int procurandoPrimeiroRegistro(int ID){
       int pos = -1;
       List <CRUD> Lcrud = new LinkedList <CRUD>();
       CRUD crud = null;
@@ -79,40 +52,40 @@ public class CRUD{
         }
       }
        return pos;  
-    }
+    }*/
     
     public int Create(CRUD crud) throws IOException{
        raf.seek(0);
 
-       int ultimoId = raf.readInt();
-       crud.idConta = ultimoId + 1;
+       this.ultimoID = raf.readInt();
+       crud.idConta = this.ultimoID + 1;
        raf.seek(0);
        raf.writeInt(crud.idConta);
        raf.seek(raf.length());
        raf.writeChar(crud.lapide = ' ');
+       Dados = ultimoID + Dados;
+       crud.Object = Main.tranformandoDados(Dados);
+       crud.tamanho = Dados.length();
        raf.writeInt(crud.tamanho);
+
        raf.write(crud.Object);
 
-       return ultimoId; 
+       Main.crud.add(crud);
+
+       return this.ultimoID; 
     }  
 
-    public CRUD Read(int ID) throws IOException{
-      long pos = -1;
-      List <CRUD> Lcrud = new LinkedList <CRUD>();
-      CRUD crud = null;
-      Iterator<CRUD> Icrud = Lcrud.iterator();
+    public String Read(int ID) throws IOException{
+      ContaBancaria cb = null;
+      raf.seek(0);
+      int ultimoId = raf.readInt();
+      
+      //String nomeusuario = raf.readChar();
+      //System.out.println(ultimoId + nomeusuario);
 
-      while(Icrud.hasNext()){
-        crud = Icrud.next();
-        if(crud.lapide != '*'){
-          if(crud.idConta == ID){
-            pos = crud.idConta;
-            return crud;
-          } 
-        }  
-      }
-       return crud;// objeto vazio null
+      //cb.lapide = raf.readChar(); 
+      //System.out.println(cb.lapide);
+
+      return "OK";
     }
-
-
 }
