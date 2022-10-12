@@ -109,12 +109,20 @@ public class Main{
                 break;
 
                 case 2:
+                ContaBancaria cb;
                 System.out.println("Digite qual objeto deseja ler");
                 int Id = sc.nextInt();
 
-                crud.Read(Id);  
+                cb = crud.Read(Id);  
 
-                //ClearConsole(); 
+                ClearConsole(); 
+
+                if(cb == null){
+                    System.out.println("Conta nao existe ou foi apagada");
+                }else{
+                    System.out.println(cb.toString());
+                }
+                
                 operacoesPossiveis();
                 opcao = sc.nextInt();
 
@@ -123,6 +131,8 @@ public class Main{
                 case 3:
                 System.out.println("Digite qual objeto desejar Atualizar");
                 crud = new CRUD();
+
+
                 crud.Update(crud);
 
 

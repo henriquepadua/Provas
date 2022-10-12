@@ -45,4 +45,21 @@ public class ContaBancaria {
 
         return baos.toByteArray();
     }
+
+    @Override
+    public String toString(){
+      String mostrada = ultimoID + nomePessoa ;
+      for(int i = 0;i < email.length;i++){
+        if(email[i] == null){
+         mostrada = ""; mostrada = mostrada.trim();
+        }else{
+          mostrada += email[i];
+        }
+        System.out.print(mostrada);  
+      }
+
+      mostrada += nomeUsuario + senha + cpf + cidade + transferenciasRealizadas  + saldoConta ;       
+
+        return mostrada;
+    }
 }

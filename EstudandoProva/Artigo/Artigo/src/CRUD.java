@@ -114,7 +114,6 @@ public class CRUD extends ContaBancaria{
           crud.senha = cb.senha = raf.readUTF();
           crud.cpf = cb.cpf = raf.readUTF();
 
-
           crud.cidade = cb.cidade = raf.readUTF();
           crud.transferenciasRealizadas = cb.transferenciasRealizadas = raf.readInt();
           crud.saldoConta = cb.saldoConta = raf.readFloat();
