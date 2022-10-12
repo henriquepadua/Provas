@@ -92,7 +92,7 @@ public class Main{
         operacoesPossiveis();       
         opcao = sc.nextInt();
 
-        while(!(opcao >= 6)){
+        while(!(opcao >= 5)){
             crud = new CRUD();
             switch(opcao){
                 case 1:
@@ -118,9 +118,9 @@ public class Main{
                 ClearConsole(); 
 
                 if(cb == null){
-                    System.out.println("Conta nao existe ou foi apagada");
+                    System.out.println("Resultado do Read = Conta nao existe ou foi apagada");
                 }else{
-                    System.out.println(cb.toString());
+                    System.out.println("Resultado do Read = " + cb.toString());
                 }
                 
                 operacoesPossiveis();
@@ -130,13 +130,24 @@ public class Main{
 
                 case 3:
                 System.out.println("Digite qual objeto desejar Atualizar");
-                crud = new CRUD();
+                int id = sc.nextInt();
 
+                crud.idConta = id;
+                crud.Dados = leituraDados(crud, sc, contadorEmail);
 
                 crud.Update(crud);
 
+                operacoesPossiveis();
+                opcao = sc.nextInt();
 
+                case 4:
 
+                break;
+
+                case 5:
+
+                
+                return;
             }
         }       
     }

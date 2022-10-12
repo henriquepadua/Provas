@@ -14,39 +14,7 @@ public class CRUD extends ContaBancaria{
          this.raf = new RandomAccessFile(file,"rw");
         if(this.raf.length() == 0){ raf.writeInt(0); }
     }
-
-    @Override
-    public String toString(){
-      String mostrada = ultimoID + nomePessoa ;
-      for(int i = 0;i < email.length;i++){
-        if(email[i] == null){
-         mostrada = ""; mostrada = mostrada.trim();
-        }else{
-          mostrada += email[i];
-        }
-        System.out.print(mostrada);  
-      }
-
-      mostrada += nomeUsuario + senha + cpf + cidade + transferenciasRealizadas  + saldoConta ;       
-
-           return mostrada;
-    }
-
-    /*public byte[] tranformandoDados(String tmp) throws IOException{
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        DataOutputStream dos = new DataOutputStream(baos);
-
-        dos.writeUTF(nomePessoa);
-        dos.writeUTF(nomeUsuario);
-        dos.writeUTF(senha);
-        dos.writeUTF(cpf);
-        dos.writeUTF(cidade);
-        dos.writeInt(transferenciasRealizadas);
-        dos.writeFloat(saldoConta);
-
-        return baos.toByteArray();
-    }*/
-
+    
     public static byte[] tranformandoDados(String tmp) throws UnsupportedEncodingException{
       return tmp.getBytes("UTF-8");
     }
@@ -135,21 +103,27 @@ public class CRUD extends ContaBancaria{
 
         if(lapide == ' '){
           int tamanho = raf.readInt();
-          
-          byte[] conta = cb.tranformandoDados();
-          
+
           int id = raf.readInt();
           
+          byte[] conta = new byte[tamanho];     
+          ContaBancaria dentroArquivo = new ContaBancaria();
+
+          leituraDados(conta);
+
           if(id == cb.idConta){
-            cb.idConta = id;
-            if(conta.length <= tamanho){
+            
+            cb.tamanho = Dados.length();
+            if(cb.tamanho <= tamanho){
 
               raf.seek(pos);
               raf.writeChar(lapide);
               raf.writeInt(tamanho);
               
               raf.writeInt(id);
+              conta = cb.tranformandoDados();
               raf.write(conta);
+
               resp =  true;
 
             }else{

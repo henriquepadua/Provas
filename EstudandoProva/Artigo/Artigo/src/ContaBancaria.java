@@ -1,4 +1,6 @@
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -38,12 +40,30 @@ public class ContaBancaria {
         dos.writeUTF(nomePessoa);
         dos.writeUTF(nomeUsuario);
         dos.writeUTF(senha);
+
         dos.writeUTF(cpf);
         dos.writeUTF(cidade);
         dos.writeInt(transferenciasRealizadas);
         dos.writeFloat(saldoConta);
 
         return baos.toByteArray();
+    }
+
+    public ContaBancaria leituraDados(byte[] dados) throws IOException{
+        ContaBancaria cb = new ContaBancaria();
+
+        ByteArrayInputStream baos = new ByteArrayInputStream(dados);
+        DataInputStream dis = new DataInputStream(baos);
+
+        cb.nomePessoa = dis.readUTF();
+        cb.nomeUsuario = dis.readUTF();
+        cb.senha = dis.readUTF();
+
+        cb.cidade = dis.readUTF();
+        cb.transferenciasRealizadas = dis.readInt();
+        cb.saldoConta = dis.readFloat();
+        
+        return cb;
     }
 
     @Override
