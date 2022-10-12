@@ -78,7 +78,7 @@ public class ContaBancaria {
         System.out.print(mostrada);  
       }
 
-      mostrada += nomeUsuario + senha + cpf + cidade + transferenciasRealizadas  + saldoConta ;       
+      mostrada += "Seu Usuario atual " + " ' " + nomeUsuario + " ' " +  " Seu CPF " + cpf + " Sua cidade atual = " + cidade + " Quantidade de transferencias = " + transferenciasRealizadas  + " Saldo da conta = R$" + saldoConta ;       
 
         return mostrada;
     }

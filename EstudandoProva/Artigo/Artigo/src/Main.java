@@ -86,6 +86,7 @@ public class Main{
     public static void main(String[] args) throws Exception {
         CRUD crud;
         Scanner sc = new Scanner(System.in);
+        boolean resultado;
         int contadorEmail = 0;
         int opcao = 0;
 
@@ -110,7 +111,7 @@ public class Main{
 
                 case 2:
                 ContaBancaria cb;
-                System.out.println("Digite qual objeto deseja ler");
+                System.out.println("Digite qual Conta deseja consultar");
                 int Id = sc.nextInt();
 
                 cb = crud.Read(Id);  
@@ -129,18 +130,31 @@ public class Main{
                 break;
 
                 case 3:
-                System.out.println("Digite qual objeto desejar Atualizar");
+                System.out.println("Digite qual Conta desejar Atualizar");
                 int id = sc.nextInt();
 
                 crud.idConta = id;
                 crud.Dados = leituraDados(crud, sc, contadorEmail);
 
-                crud.Update(crud);
+                resultado = crud.Update(crud);
+
+                if(resultado) System.out.println( "Conta Criada com Sucesso!!!");
+                else System.out.println("Infelizmente nao foi possivel atualizar sua conta"); 
 
                 operacoesPossiveis();
                 opcao = sc.nextInt();
 
                 case 4:
+                System.out.println("Digite qual Conta desejar Atualizar");
+                int iD = sc.nextInt();
+
+                resultado = crud.Delete(iD);
+
+                if(resultado) System.out.println( "Conta Apagada com Sucesso!!!");
+                else System.out.println("Infelizmente nao foi possivel apagar sua conta pois ele nao existe"); 
+
+                operacoesPossiveis();
+                opcao = sc.nextInt();
 
                 break;
 
@@ -148,6 +162,13 @@ public class Main{
 
                 
                 return;
+
+                default:
+                ClearConsole();
+                System.out.println("Digite uma opcao valida");
+
+                operacoesPossiveis();
+                opcao = sc.nextInt();             
             }
         }       
     }

@@ -112,7 +112,7 @@ public class CRUD extends ContaBancaria{
           leituraDados(conta);
 
           if(id == cb.idConta){
-            
+
             cb.tamanho = Dados.length();
             if(cb.tamanho <= tamanho){
 
@@ -144,5 +144,37 @@ public class CRUD extends ContaBancaria{
         } 
       } 
         return resp;
+  }
+
+  public boolean Delete(int id) throws IOException{
+    boolean resp = false;
+    long pos = 4;
+    raf.seek(pos);
+
+    while(raf.getFilePointer() < raf.length()){
+      pos = raf.getFilePointer();
+      char lapide = raf.readChar();
+    
+      if(lapide == ' '){
+        int tamanho = raf.readInt();
+
+        int idarquivo = raf.readInt();
+        
+        byte[] conta = new byte[tamanho];     
+
+        leituraDados(conta);
+
+        if(id == idarquivo){
+            raf.seek(pos);
+            raf.writeChar(lapide = '*');
+
+            resp =  true;
+
+        }
+      }
+    }
+
+      return resp;
+
   }
 }
