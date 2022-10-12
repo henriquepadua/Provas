@@ -121,11 +121,11 @@ public class Main{
                 break;
 
                 case 3:
-                System.out.println("Digite qual onjeto desejar Atualizar");
+                System.out.println("Digite qual objeto desejar Atualizar");
                 crud = new CRUD();
                 crud.Update(crud);
 
-                
+
 
             }
         }       

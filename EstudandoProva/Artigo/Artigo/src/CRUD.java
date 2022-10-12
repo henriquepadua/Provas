@@ -81,10 +81,10 @@ public class CRUD extends ContaBancaria{
       CRUD crud = new CRUD();
       raf.seek(pos);
 
-      char lapide = raf.readChar();
       while(raf.getFilePointer() < raf.length()){
         pos = raf.getFilePointer();
-        raf.seek(pos);
+
+        lapide = raf.readChar();
         cb.lapide = lapide;
 
         if(cb.lapide == ' '){
@@ -100,6 +100,7 @@ public class CRUD extends ContaBancaria{
             crud.senha = cb.senha = raf.readUTF();
             crud.cpf = cb.cpf = raf.readUTF();
 
+
             crud.cidade = cb.cidade = raf.readUTF();
             crud.transferenciasRealizadas = cb.transferenciasRealizadas = raf.readInt();
             crud.saldoConta = cb.saldoConta = raf.readFloat();
@@ -107,19 +108,17 @@ public class CRUD extends ContaBancaria{
             return cb;
           }
 
-          crud.idConta = cb.idConta = id;
           crud.nomePessoa = cb.nomePessoa = raf.readUTF();
 
           crud.nomeUsuario = cb.nomeUsuario = raf.readUTF();
           crud.senha = cb.senha = raf.readUTF();
           crud.cpf = cb.cpf = raf.readUTF();
 
+
           crud.cidade = cb.cidade = raf.readUTF();
           crud.transferenciasRealizadas = cb.transferenciasRealizadas = raf.readInt();
           crud.saldoConta = cb.saldoConta = raf.readFloat();
 
-          lapide = raf.readChar();
-          
         }
       }
 
@@ -145,15 +144,29 @@ public class CRUD extends ContaBancaria{
           if(id == cb.idConta){
             cb.idConta = id;
             if(conta.length <= tamanho){
+
+              raf.seek(pos);
+              raf.writeChar(lapide);
+              raf.writeInt(tamanho);
+              
+              raf.writeInt(id);
               raf.write(conta);
               resp =  true;
+
             }else{
-              lapide = '*';
+
+              raf.seek(pos);
+              raf.writeChar(lapide = '*');
               raf.seek(raf.length());
+
+              raf.writeInt(tamanho);
+              raf.writeInt(id);
               raf.write(conta);
+
               resp = true;
+
             }
-            return resp;
+              return resp;
           }
         } 
       } 
