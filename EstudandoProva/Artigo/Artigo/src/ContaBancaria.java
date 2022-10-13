@@ -37,6 +37,7 @@ public class ContaBancaria {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
 
+        dos.writeInt(idConta);
         dos.writeUTF(nomePessoa);
         dos.writeUTF(nomeUsuario);
         dos.writeUTF(senha);

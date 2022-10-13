@@ -61,17 +61,17 @@ public class CRUD extends ContaBancaria{
           int id = raf.readInt();
 
           if(id == ID) { 
-            crud.idConta = cb.idConta = id;
-            crud.nomePessoa = cb.nomePessoa = raf.readUTF();
+            cb.idConta = id;
+            cb.nomePessoa = raf.readUTF();
 
-            crud.nomeUsuario = cb.nomeUsuario = raf.readUTF();
-            crud.senha = cb.senha = raf.readUTF();
-            crud.cpf = cb.cpf = raf.readUTF();
+            cb.nomeUsuario = raf.readUTF();
+            cb.senha = raf.readUTF();
+            cb.cpf = raf.readUTF();
 
 
-            crud.cidade = cb.cidade = raf.readUTF();
-            crud.transferenciasRealizadas = cb.transferenciasRealizadas = raf.readInt();
-            crud.saldoConta = cb.saldoConta = raf.readFloat();
+            cb.cidade = raf.readUTF();
+            cb.transferenciasRealizadas = raf.readInt();
+            cb.saldoConta = raf.readFloat();
 
             return cb;
           }

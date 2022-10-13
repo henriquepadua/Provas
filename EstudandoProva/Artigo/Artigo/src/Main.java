@@ -34,7 +34,7 @@ public class Main{
         crud.nomePessoa = crud.nomePessoa = sc.next();
         tmp = tmp + crud.nomePessoa;
 
-        if(crud.email[contadorEmail] != ""){
+        /*if(crud.email[contadorEmail] != ""){
             System.out.println("Digite seu email");
             crud.email[contadorEmail] = crud.email[contadorEmail] = sc.next(); 
             tmp = tmp + crud.email[contadorEmail];
@@ -42,6 +42,7 @@ public class Main{
             contadorEmail++;
             crud.contadorEmail = contadorEmail;
          }
+         */
 
          System.out.println("Digite seu Usuario ");  
          crud.nomeUsuario =  crud.nomeUsuario = sc.next();
@@ -138,11 +139,13 @@ public class Main{
 
                 resultado = crud.Update(crud);
 
-                if(resultado) System.out.println( "Conta Criada com Sucesso!!!");
+                if(resultado) System.out.println( "Conta Atualizada com Sucesso!!!");
                 else System.out.println("Infelizmente nao foi possivel atualizar sua conta"); 
 
                 operacoesPossiveis();
                 opcao = sc.nextInt();
+
+                break;
 
                 case 4:
                 System.out.println("Digite qual Conta desejar Atualizar");
