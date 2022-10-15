@@ -20,72 +20,65 @@ public class CRUD extends ContaBancaria{
     }
 
     public int Create(ContaBancaria cb) throws IOException{
-       CRUD crud = new CRUD();
        raf.seek(0);
 
        this.ultimoID = raf.readInt();
+       if(cb.idConta == 0) cb.idConta = cb.idConta + 1;
        cb.idConta = this.ultimoID + 1;
+
        raf.seek(0);
 
        raf.writeInt(cb.idConta);
        raf.seek(raf.length());
-       raf.writeChar(crud.lapide = ' ');
+       raf.writeChar(cb.lapide = ' ');
 
-       System.out.println(Dados);
-       crud.Object = tranformandoDados(Dados);
        cb.tamanho = Dados.length();
 
        raf.writeInt(cb.tamanho);
-       raf.writeInt(ultimoID);
        byte[] objeto = cb.tranformandoDados();
        raf.write(objeto);
 
-        return this.ultimoID; 
+        return this.idConta; 
     }  
 
     public ContaBancaria Read(int ID) throws IOException{
+      int ultimoIDLido = 0;
       long pos = 4;
       ContaBancaria cb = new ContaBancaria();
-      CRUD crud = new CRUD();
       raf.seek(pos);
 
       while(raf.getFilePointer() < raf.length()){
         pos = raf.getFilePointer();
 
         lapide = raf.readChar();
-        cb.lapide = lapide;
 
-        if(cb.lapide == ' '){
-          int tamanho = raf.readInt();
-          
-          int id = raf.readInt();
+        int tamanho = raf.readInt();
+        if(tamanho > 100) break;
+        
+        int id = raf.readInt();
+        if(id != ultimoIDLido + 1 && id == 0) break;
+        ultimoIDLido = id;
+        
+        cb.nomePessoa = raf.readUTF();
+
+        cb.nomeUsuario = raf.readUTF();
+        cb.senha = raf.readUTF();
+        cb.cpf = raf.readUTF();
+
+
+        cb.cidade = raf.readUTF();
+        cb.transferenciasRealizadas = raf.readInt();
+        cb.saldoConta = raf.readFloat();
+
+        
+
+        if(lapide == ' '){
 
           if(id == ID) { 
             cb.idConta = id;
-            cb.nomePessoa = raf.readUTF();
-
-            cb.nomeUsuario = raf.readUTF();
-            cb.senha = raf.readUTF();
-            cb.cpf = raf.readUTF();
-
-
-            cb.cidade = raf.readUTF();
-            cb.transferenciasRealizadas = raf.readInt();
-            cb.saldoConta = raf.readFloat();
-
+            
             return cb;
           }
-
-          crud.nomePessoa = cb.nomePessoa = raf.readUTF();
-
-          crud.nomeUsuario = cb.nomeUsuario = raf.readUTF();
-          crud.senha = cb.senha = raf.readUTF();
-          crud.cpf = cb.cpf = raf.readUTF();
-
-          crud.cidade = cb.cidade = raf.readUTF();
-          crud.transferenciasRealizadas = cb.transferenciasRealizadas = raf.readInt();
-          crud.saldoConta = cb.saldoConta = raf.readFloat();
-
         }
       }
 
@@ -105,24 +98,22 @@ public class CRUD extends ContaBancaria{
           int tamanho = raf.readInt();
 
           int id = raf.readInt();
-          
+
           byte[] conta = new byte[tamanho];     
           ContaBancaria dentroArquivo = new ContaBancaria();
-
-          leituraDados(conta);
+          dentroArquivo.leituraDados(conta);
 
           if(id == cb.idConta){
 
             cb.tamanho = Dados.length();
             if(cb.tamanho <= tamanho){
 
-              raf.seek(pos);
-              raf.writeChar(lapide);
-              raf.writeInt(tamanho);
+              raf.seek(pos+2);
+              raf.writeInt(cb.tamanho);
               
-              raf.writeInt(id);
-              conta = cb.tranformandoDados();
-              raf.write(conta);
+              byte[] dados = new byte[cb.tamanho];
+              dados = cb.tranformandoDados();
+              raf.write(dados);
 
               resp =  true;
 
@@ -133,8 +124,8 @@ public class CRUD extends ContaBancaria{
               raf.seek(raf.length());
 
               raf.writeInt(tamanho);
-              raf.writeInt(id);
-              raf.write(conta);
+              byte[] dadosAtualizados = cb.tranformandoDados();
+              raf.write(dadosAtualizados);
 
               resp = true;
 

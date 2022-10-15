@@ -50,21 +50,19 @@ public class ContaBancaria {
         return baos.toByteArray();
     }
 
-    public ContaBancaria leituraDados(byte[] dados) throws IOException{
-        ContaBancaria cb = new ContaBancaria();
-
+    public void leituraDados(byte[] dados) throws IOException{
         ByteArrayInputStream baos = new ByteArrayInputStream(dados);
         DataInputStream dis = new DataInputStream(baos);
 
-        cb.nomePessoa = dis.readUTF();
-        cb.nomeUsuario = dis.readUTF();
-        cb.senha = dis.readUTF();
+        nomePessoa = dis.readUTF();
+        nomeUsuario = dis.readUTF();
+        senha = dis.readUTF();
 
-        cb.cidade = dis.readUTF();
-        cb.transferenciasRealizadas = dis.readInt();
-        cb.saldoConta = dis.readFloat();
-        
-        return cb;
+        cpf = dis.readUTF();
+        cidade = dis.readUTF();
+        transferenciasRealizadas = dis.readInt();
+        saldoConta = dis.readFloat();
+
     }
 
     @Override

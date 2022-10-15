@@ -148,7 +148,7 @@ public class Main{
                 break;
 
                 case 4:
-                System.out.println("Digite qual Conta desejar Atualizar");
+                System.out.println("Digite qual Conta desejar Apagar");
                 int iD = sc.nextInt();
 
                 resultado = crud.Delete(iD);
