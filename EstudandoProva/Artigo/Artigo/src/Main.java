@@ -113,6 +113,7 @@ public class Main{
                 case 2:
                 ContaBancaria cb;
                 System.out.println("Digite qual Conta deseja consultar");
+
                 int Id = sc.nextInt();
 
                 cb = crud.Read(Id);  
