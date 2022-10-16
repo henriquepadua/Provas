@@ -87,18 +87,21 @@ public class CRUD extends ContaBancaria{
         int tamanho = raf.readInt();
 
         int id = raf.readInt();
+        if(id > ID) break;
         long voltaParaTamanho = raf.getFilePointer();
 
         raf.seek(voltaParaTamanho + tamanho);
         int teste = raf.read() + raf.read() - 12;
 
-        if(teste != 20 || teste == 0) {
-          raf.seek(voltaParaTamanho);
-          int novotamanho = pegaTamanho();
-          if(novotamanho != tamanho){
-            raf.seek(mudarTamanhoRegistro);
+        if(teste != 20 || teste == 0 ) {
+          if(teste != 30 ){
+            raf.seek(voltaParaTamanho);
+            int novotamanho = pegaTamanho();
+            if(novotamanho != tamanho){
+              raf.seek(mudarTamanhoRegistro);
 
-            raf.writeInt(novotamanho);
+              raf.writeInt(novotamanho);
+            }
           }
         }
         
@@ -176,12 +179,13 @@ public class CRUD extends ContaBancaria{
       pos = raf.getFilePointer();
 
       char lapide = raf.readChar();
-    
-      if(lapide == ' '){
-        int tamanho = raf.readInt();
 
-        int idarquivo = raf.readInt();
-        
+      int tamanho = raf.readInt();
+
+      int idarquivo = raf.readInt();
+
+      if(lapide == ' '){
+       
         byte[] conta = new byte[tamanho];     
 
         ContaBancaria cb = new ContaBancaria();
@@ -202,6 +206,7 @@ public class CRUD extends ContaBancaria{
             return resp =  true;
         }
       }
+      pos = raf.getFilePointer() + tamanho;      
     }
 
       return resp;
