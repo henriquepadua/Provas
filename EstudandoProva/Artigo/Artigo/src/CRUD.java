@@ -1,7 +1,7 @@
 import java.io.*;
 
 public class CRUD extends ContaBancaria{   
-    String nomePessoa;
+    int controleREad = 0;
     String Dados;
     File file;
     byte[] Object;
@@ -14,6 +14,10 @@ public class CRUD extends ContaBancaria{
         }             
          this.raf = new RandomAccessFile(file,"rw");
         if(this.raf.length() == 0){ raf.writeInt(0); }
+    }
+
+    public void controleREad(){
+      controleREad++;
     }
 
     public int pegaTamanho() throws IOException{
@@ -78,13 +82,26 @@ public class CRUD extends ContaBancaria{
         raf.seek(pos);
         lapide = raf.readChar();
 
+        long mudarTamanhoRegistro = raf.getFilePointer();
+
         int tamanho = raf.readInt();
 
         int id = raf.readInt();
         long voltaParaTamanho = raf.getFilePointer();
 
-        tamanho = pegaTamanho();
+        raf.seek(voltaParaTamanho + tamanho);
+        int teste = raf.read() + raf.read() - 12;
 
+        if(teste != 20 || teste == 0) {
+          raf.seek(voltaParaTamanho);
+          int novotamanho = pegaTamanho();
+          if(novotamanho != tamanho){
+            raf.seek(mudarTamanhoRegistro);
+
+            raf.writeInt(novotamanho);
+          }
+        }
+        
         raf.seek(voltaParaTamanho);
         
         if(lapide == ' '){
@@ -125,8 +142,7 @@ public class CRUD extends ContaBancaria{
 
         int id = raf.readInt();
 
-        tamanho = pegaTamanho();
-        byte[] conta = new byte[tamanho + 4];
+        byte[] conta = new byte[tamanho];
 
         raf.seek(voltaParaTamanho);
 
@@ -156,7 +172,9 @@ public class CRUD extends ContaBancaria{
     raf.seek(pos);
 
     while(raf.getFilePointer() < raf.length()){
+      raf.seek(pos);
       pos = raf.getFilePointer();
+
       char lapide = raf.readChar();
     
       if(lapide == ' '){

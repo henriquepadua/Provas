@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Main{
  //   public static byte[] Dados;// armazena os dados do objeto
+    public static int controleREad = 0;
     public static int pos;
     public static List<Integer> LCRUD = new LinkedList<>();
     public static List<CRUD> crud = new LinkedList<>();
