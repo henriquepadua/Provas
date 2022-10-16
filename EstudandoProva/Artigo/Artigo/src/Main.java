@@ -1,3 +1,4 @@
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -71,10 +72,6 @@ public class Main{
 
           return tmp;
     }
-
-    /*public static byte[] tranformandoDados(String tmp) throws UnsupportedEncodingException{
-        return tmp.getBytes("UTF-8");
-    }*/   
 
     public static void operacoesPossiveis(){
         System.out.println("Digite 1 para criar uma contabancaria");

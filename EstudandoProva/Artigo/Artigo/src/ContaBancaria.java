@@ -3,6 +3,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public class ContaBancaria {
     public int ultimoID;
@@ -38,23 +39,23 @@ public class ContaBancaria {
         DataOutputStream dos = new DataOutputStream(baos);
 
         dos.writeInt(idConta);
-        dos.writeUTF(nomePessoa);
-        dos.writeUTF(nomeUsuario);
-        dos.writeUTF(senha);
+        dos.writeUTF(nomePessoa.trim());
+        dos.writeUTF(nomeUsuario.trim());
+        dos.writeUTF(senha.trim());
 
-        dos.writeUTF(cpf);
-        dos.writeUTF(cidade);
+        dos.writeUTF(cpf.trim());
+        dos.writeUTF(cidade.trim());
         dos.writeInt(transferenciasRealizadas);
         dos.writeFloat(saldoConta);
 
         return baos.toByteArray();
     }
 
-    public void leituraDados(byte[] dados) throws IOException{
+    public String leituraDados(byte[] dados) throws IOException{
         ByteArrayInputStream baos = new ByteArrayInputStream(dados);
         DataInputStream dis = new DataInputStream(baos);
 
-        nomePessoa = dis.readUTF();
+        nomePessoa = dis.readUTF() ;
         nomeUsuario = dis.readUTF();
         senha = dis.readUTF();
 
@@ -63,7 +64,14 @@ public class ContaBancaria {
         transferenciasRealizadas = dis.readInt();
         saldoConta = dis.readFloat();
 
+        return nomePessoa;
     }
+
+    
+
+    public byte[] tranformandoDados(String tmp) throws UnsupportedEncodingException{
+      return tmp.getBytes("UTF-8");
+    }   
 
     @Override
     public String toString(){

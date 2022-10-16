@@ -1,6 +1,7 @@
 import java.io.*;
 
 public class CRUD extends ContaBancaria{   
+    String nomePessoa;
     String Dados;
     File file;
     byte[] Object;
@@ -14,16 +15,42 @@ public class CRUD extends ContaBancaria{
          this.raf = new RandomAccessFile(file,"rw");
         if(this.raf.length() == 0){ raf.writeInt(0); }
     }
-    
-    public static byte[] tranformandoDados(String tmp) throws UnsupportedEncodingException{
-      return tmp.getBytes("UTF-8");
-    }
 
+    public int pegaTamanho() throws IOException{
+        long pos;
+        int indicadoNomePessoa = raf.read() + raf.read();
+        
+        pos = raf.getFilePointer();
+        raf.seek(pos + indicadoNomePessoa);
+
+        int indicadoNomeUsuario = raf.read() + raf.read();
+
+        pos = raf.getFilePointer();
+        raf.seek(pos + indicadoNomeUsuario);
+
+        int indicadoSenha = raf.read() + raf.read();
+
+        pos = raf.getFilePointer();
+        raf.seek(pos + indicadoSenha);
+
+        int indicadoCPF = raf.read() + raf.read();
+
+        pos = raf.getFilePointer();
+        raf.seek(pos + indicadoCPF);
+        
+        int indicadoCidade = raf.read() + raf.read();
+
+        tamanho = indicadoCPF + indicadoCidade + indicadoNomePessoa 
+                  + indicadoNomeUsuario + indicadoSenha + 18;
+
+        return tamanho;          
+
+    }
+    
     public int Create(ContaBancaria cb) throws IOException{
        raf.seek(0);
 
        this.ultimoID = raf.readInt();
-       if(cb.idConta == 0) cb.idConta = cb.idConta + 1;
        cb.idConta = this.ultimoID + 1;
 
        raf.seek(0);
@@ -42,9 +69,9 @@ public class CRUD extends ContaBancaria{
     }  
 
     public ContaBancaria Read(int ID) throws IOException{
+      ContaBancaria cb = new ContaBancaria();
       int ultimoIDLido = 0;
       long pos = 4;
-      ContaBancaria cb = new ContaBancaria();
       raf.seek(pos);
 
       while(raf.getFilePointer() < raf.length()){
@@ -52,11 +79,13 @@ public class CRUD extends ContaBancaria{
         lapide = raf.readChar();
 
         int tamanho = raf.readInt();
-        if(tamanho > 100) break;
-        
+
         int id = raf.readInt();
-        if(id != ultimoIDLido + 1 && id == 0) break;
-        ultimoIDLido = id;
+        long voltaParaTamanho = raf.getFilePointer();
+
+        tamanho = pegaTamanho();
+
+        raf.seek(voltaParaTamanho);
         
         if(lapide == ' '){
 
@@ -76,14 +105,7 @@ public class CRUD extends ContaBancaria{
             return cb;
           }
         }
-          if(id %2== 0){
-            pos = raf.getFilePointer() + tamanho + 19;  
-          }else{
-            pos = raf.getFilePointer() + tamanho + 15;
-          }
-            
-//        pos = raf.getFilePointer() - 4;
-//        pos = pos + tamanho;
+          pos = raf.getFilePointer() + tamanho;            
       }
 
         return cb = null;
@@ -95,19 +117,22 @@ public class CRUD extends ContaBancaria{
       raf.seek(pos);
 
       while(raf.getFilePointer() < raf.length()){
+        raf.seek(pos);
         pos = raf.getFilePointer();
+
         char lapide = raf.readChar();
 
-        if(lapide == ' '){
-          int tamanho = raf.readInt();
+        int tamanho = raf.readInt();
 
-          int id = raf.readInt();
+        int id = raf.readInt();
+
+        if(lapide == ' '){
 
           byte[] conta = new byte[tamanho];     
           ContaBancaria dentroArquivo = new ContaBancaria();
-          dentroArquivo.leituraDados(conta);
 
           if(id == cb.idConta){
+            //dentroArquivo.leituraDados(conta);
 
             cb.tamanho = Dados.length();
             if(cb.tamanho <= tamanho){
@@ -122,6 +147,11 @@ public class CRUD extends ContaBancaria{
             }
               return resp;
           }
+        }
+        if(id %2== 0){
+          pos = raf.getFilePointer() + tamanho + 19;  
+        }else{
+          pos = raf.getFilePointer() + tamanho + 15;
         } 
       } 
         return resp;
@@ -158,8 +188,7 @@ public class CRUD extends ContaBancaria{
             raf.seek(pos);
             raf.writeChar(lapide = '*');
 
-            resp =  true;
-
+            return resp =  true;
         }
       }
     }
