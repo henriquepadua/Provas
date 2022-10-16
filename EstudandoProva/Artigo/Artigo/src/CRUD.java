@@ -118,29 +118,26 @@ public class CRUD extends ContaBancaria{
 
       while(raf.getFilePointer() < raf.length()){
         raf.seek(pos);
-        pos = raf.getFilePointer();
-
-        char lapide = raf.readChar();
+        lapide = raf.readChar();
 
         int tamanho = raf.readInt();
+        long voltaParaTamanho = raf.getFilePointer();
 
         int id = raf.readInt();
 
+        tamanho = pegaTamanho();
+        byte[] conta = new byte[tamanho + 4];
+
+        raf.seek(voltaParaTamanho);
+
         if(lapide == ' '){
 
-          byte[] conta = new byte[tamanho];     
-          ContaBancaria dentroArquivo = new ContaBancaria();
-
           if(id == cb.idConta){
-            //dentroArquivo.leituraDados(conta);
 
             cb.tamanho = Dados.length();
             if(cb.tamanho <= tamanho){
-
-              raf.seek(pos+2);
-              raf.writeInt(cb.tamanho);
-              
-              conta = cb.tranformandoDados();
+              raf.seek(voltaParaTamanho);      
+              conta = cb.tranformandoDados();// ja vai esta no ponteiro do arquivo depois do id da conta
               raf.write(conta);
 
               resp =  true;
@@ -148,11 +145,7 @@ public class CRUD extends ContaBancaria{
               return resp;
           }
         }
-        if(id %2== 0){
-          pos = raf.getFilePointer() + tamanho + 19;  
-        }else{
-          pos = raf.getFilePointer() + tamanho + 15;
-        } 
+          pos = raf.getFilePointer() + tamanho;
       } 
         return resp;
   }
