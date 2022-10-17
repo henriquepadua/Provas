@@ -1,9 +1,6 @@
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public class ContaBancaria {
     public int ultimoID;
@@ -34,47 +31,25 @@ public class ContaBancaria {
         this.saldoConta = 0;     
     }   
 
-    public byte[] tranformandoDados() throws IOException{
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        DataOutputStream dos = new DataOutputStream(baos);
+    public byte[] tranformandoDados() throws IOException{//escreve os dados e retorna um bytearray
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();//instancia o bytearray para saida
+        DataOutputStream dos = new DataOutputStream(baos);//instancia o datastream para saida
 
-        dos.writeInt(idConta);
-        dos.writeUTF(nomePessoa.trim());
-        dos.writeUTF(nomeUsuario.trim());
-        dos.writeUTF(senha.trim());
+        dos.writeInt(idConta);//escreve o id da conta depois de adicionar + 1
+        dos.writeUTF(nomePessoa.trim());// escreve o nome da pessoa
+        dos.writeUTF(nomeUsuario.trim());//escreve o nome do usuario
+        dos.writeUTF(senha.trim());//escreve a senha lida pelo usuario
 
-        dos.writeUTF(cpf.trim());
-        dos.writeUTF(cidade.trim());
-        dos.writeInt(transferenciasRealizadas);
-        dos.writeFloat(saldoConta);
+        dos.writeUTF(cpf.trim());//escreve o cpf limpando espacos vazios
+        dos.writeUTF(cidade.trim());//escreve a sigla da cidade
+        dos.writeInt(transferenciasRealizadas);//escreve quantas tranferencias foram realizadas
+        dos.writeFloat(saldoConta);//escreve o saldo da conta lido do usuario
 
         return baos.toByteArray();
     }
 
-    public String leituraDados(byte[] dados) throws IOException{
-        ByteArrayInputStream baos = new ByteArrayInputStream(dados);
-        DataInputStream dis = new DataInputStream(baos);
-
-        nomePessoa = dis.readUTF() ;
-        nomeUsuario = dis.readUTF();
-        senha = dis.readUTF();
-
-        cpf = dis.readUTF();
-        cidade = dis.readUTF();
-        transferenciasRealizadas = dis.readInt();
-        saldoConta = dis.readFloat();
-
-        return nomePessoa;
-    }
-
-    
-
-    public byte[] tranformandoDados(String tmp) throws UnsupportedEncodingException{
-      return tmp.getBytes("UTF-8");
-    }   
-
     @Override
-    public String toString(){
+    public String toString(){//metodo para verificar os dados da conta
       String mostrada = ultimoID + nomePessoa ;
       for(int i = 0;i < email.length;i++){
         if(email[i] == null){

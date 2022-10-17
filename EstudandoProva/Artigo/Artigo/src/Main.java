@@ -1,25 +1,16 @@
-import java.io.UnsupportedEncodingException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main{
- //   public static byte[] Dados;// armazena os dados do objeto
-    public static int controleREad = 0;
-    public static int pos;
-    public static List<Integer> LCRUD = new LinkedList<>();
-    public static List<CRUD> crud = new LinkedList<>();
-
-    public static void ClearConsole(){// funcao para limpar a tela em tempo de execucao assim que realizar uma das operacoes do CRUD
+     public static void ClearConsole(){// funcao para limpar a tela em tempo de execucao assim que realizar uma das operacoes do CRUD
         try{
             String operatingSystem = System.getProperty("os.name"); //Check the current operating system
               
-            if(operatingSystem.contains("Windows")){        
+            if(operatingSystem.contains("Windows")){//se for windows usa os comandos para limpar a tela do SO        
                 ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "cls");
                 Process startProcess = pb.inheritIO().start();
                 startProcess.waitFor();
             } else {
-                ProcessBuilder pb = new ProcessBuilder("clear");
+                ProcessBuilder pb = new ProcessBuilder("clear");//se for linux usa os comandos para limpar a tela do SO
                 Process startProcess = pb.inheritIO().start();
                 startProcess.waitFor();
             } 
@@ -29,52 +20,42 @@ public class Main{
         }
     }
 
-    public static String leituraDados(CRUD crud,Scanner sc,int contadorEmail){
-        String tmp = "";
-
+    public static void leituraDados(CRUD crud,Scanner sc,int contadorEmail){//metodos para ler os dados para criar a conta do usuario
         System.out.println("Digite seu nome");
-        crud.nomePessoa = crud.nomePessoa = sc.next();
-        tmp = tmp + crud.nomePessoa;
+        crud.nomePessoa = crud.nomePessoa = sc.next();// ler o nome da pessoa
 
-        /*if(crud.email[contadorEmail] != ""){
+        if(crud.email[contadorEmail] != ""){// verifica se o email esta vazio
             System.out.println("Digite seu email");
-            crud.email[contadorEmail] = crud.email[contadorEmail] = sc.next(); 
-            tmp = tmp + crud.email[contadorEmail];
+            crud.email[contadorEmail] = crud.email[contadorEmail] = sc.next();// ler o email 
 
-            contadorEmail++;
-            crud.contadorEmail = contadorEmail;
+            crud.contadorEmail++;
          }
-         */
+         
 
          System.out.println("Digite seu Usuario ");  
-         crud.nomeUsuario =  crud.nomeUsuario = sc.next();
-         tmp = tmp + crud.nomeUsuario;
+         crud.nomeUsuario =  crud.nomeUsuario = sc.next();// ler o nome do usuaio
 
          System.out.println("Digite sua senha");
-         crud.senha = crud.senha = sc.next(); 
+         crud.senha = crud.senha = sc.next(); //ler a senha do usuario
 
          System.out.println("Digite seu CPF");
-         crud.cpf = sc.next();
-         while(crud.cpf.length() != 11){
+         crud.cpf = sc.next();//ler o cpf do usuaio
+         while(crud.cpf.length() != 11){//enquanto nao digitar os 11 digitos do CPF ele nao ler o proximo dados
             System.out.println("CPF invalido");
             System.out.println("Digite um CPF valido");
             crud.cpf = sc.next();
          } 
 
-         tmp = tmp + crud.cpf;
+         System.out.println("Digite a (SIGLA) da cidade onde mora");
+         crud.cidade = crud.cidade = sc.next();//ler a sigla da cidade
 
-         System.out.println("Digite a cidade onde mora");
-         crud.cidade = crud.cidade = sc.next();
-         tmp = tmp + crud.cidade;
-
-         tmp = tmp + Integer.toString(crud.transferenciasRealizadas = 0);
+         Integer.toString(crud.transferenciasRealizadas = 0);//inicia o numero de tranferencia com 0
          System.out.println("Digite o saldo da sua conta");
-         tmp = tmp + Float.toString(crud.saldoConta = sc.nextFloat());
+         Float.toString(crud.saldoConta = sc.nextFloat());//ler o seu saldo atual
 
-          return tmp;
     }
 
-    public static void operacoesPossiveis(){
+    public static void operacoesPossiveis(){// Metodo de Menu para as opcoes
         System.out.println("Digite 1 para criar uma contabancaria");
         System.out.println("Digite 2 para ler dados da sua conta");
         System.out.println("Digite 3 para Atualizar os dados bancarios");
@@ -82,8 +63,8 @@ public class Main{
         System.out.println("Digite 5 para Sair");
     }
 
-    public static void main(String[] args) throws Exception {
-        CRUD crud;
+    public static void main(String[] args) throws Exception {// Metodo Principal
+        CRUD crud;// Cria um crud
         Scanner sc = new Scanner(System.in);
         boolean resultado;
         int contadorEmail = 0;
@@ -93,18 +74,18 @@ public class Main{
         opcao = sc.nextInt();
 
         while(!(opcao >= 5)){
-            crud = new CRUD();
+            crud = new CRUD();//instancia o crud
             switch(opcao){
                 case 1:
                 crud.idConta = -1;
 
-                crud.Dados = leituraDados(crud, sc, contadorEmail);   
-                crud.Create(crud);
+                leituraDados(crud, sc, contadorEmail);//metodo para ler os dados para criar a conta do usuario
+                crud.Create(crud);//metodo do crud para cria a conta do usuario
 
-                ClearConsole();
+                ClearConsole();//metodo para limpar a tela em tempo de execucao
 
-                operacoesPossiveis();
-                opcao = sc.nextInt();
+                operacoesPossiveis();// metodo para mostrar qual sua proxima acao
+                opcao = sc.nextInt();// ler sua opcao desejada
 
                 break;
 
@@ -112,65 +93,64 @@ public class Main{
                 ContaBancaria cb;
                 System.out.println("Digite qual Conta deseja consultar");
 
-                int Id = sc.nextInt();
+                int Id = sc.nextInt();// ler o id da conta que deseja consultar
 
-                cb = crud.Read(Id);  
+                cb = crud.Read(Id);// ler os dados da conta e retorna a contaBancaria
 
-                ClearConsole(); 
+                ClearConsole(); //metodo para limpar a tela em tempo de execucao
 
-                if(cb == null){
+                if(cb == null){//se for null
                     System.out.println("Resultado do Read = Conta nao existe ou foi apagada");
-                }else{
-                    System.out.println("Resultado do Read = " + cb.toString());
+                }else{//se nao mostra os dados da conta lida
+                    System.out.println("Resultado do Read = " + cb.toString());// escreve os dados da conta lida na tela
                 }
                 
-                operacoesPossiveis();
-                opcao = sc.nextInt();
+                operacoesPossiveis();// metodo para mostrar qual sua proxima acao
+                opcao = sc.nextInt();// ler sua opcao desejada
 
                 break;
 
                 case 3:
                 System.out.println("Digite qual Conta desejar Atualizar");
-                int id = sc.nextInt();
+                int id = sc.nextInt();// ler o id da conta que deseja consultar
 
-                crud.idConta = id;
-                crud.Dados = leituraDados(crud, sc, contadorEmail);
+                crud.idConta = id;// seta o id da conta como o id lido no crud, pois o crud extende a contaBancaria
+                leituraDados(crud, sc, contadorEmail);// metodo para ler os dados para atualizar a conta do usuario
 
-                resultado = crud.Update(crud);
+                resultado = crud.Update(crud);// metodo que atualiza a conta do usuario e retorna true se conseguir atualizar
 
                 if(resultado) System.out.println( "Conta Atualizada com Sucesso!!!");
                 else System.out.println("Infelizmente nao foi possivel atualizar sua conta"); 
 
-                operacoesPossiveis();
-                opcao = sc.nextInt();
+                operacoesPossiveis();// metodo para mostrar qual sua proxima acao
+                opcao = sc.nextInt();// ler sua opcao desejada
 
                 break;
 
                 case 4:
                 System.out.println("Digite qual Conta desejar Apagar");
-                int iD = sc.nextInt();
+                int iD = sc.nextInt();// ler o id da conta que deseja consultar
 
-                resultado = crud.Delete(iD);
+                resultado = crud.Delete(iD);//ler os dados da conta e retorna true se a contaBancaria nao estiver apagada ainda
 
                 if(resultado) System.out.println( "Conta Apagada com Sucesso!!!");
                 else System.out.println("Infelizmente nao foi possivel apagar sua conta pois ele nao existe"); 
 
-                operacoesPossiveis();
-                opcao = sc.nextInt();
+                operacoesPossiveis();// metodo para mostrar qual sua proxima acao
+                opcao = sc.nextInt();// ler sua opcao desejada
 
                 break;
 
                 case 5:
 
-                
-                return;
+                return;// sair da tela de menu
 
                 default:
-                ClearConsole();
+                ClearConsole();//metodo para limpar a tela em tempo de execucao
                 System.out.println("Digite uma opcao valida");
 
-                operacoesPossiveis();
-                opcao = sc.nextInt();             
+                operacoesPossiveis();// metodo para mostrar qual sua proxima acao
+                opcao = sc.nextInt();// ler sua opcao desejada             
             }
         }       
     }
