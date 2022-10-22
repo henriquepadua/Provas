@@ -131,6 +131,7 @@ public class CRUD extends ContaBancaria{
 
       while(raf.getFilePointer() < raf.length()){//enquanto o ponteiro nao chegar no fim no arquivo
         raf.seek(pos);//move o ponteiro para a proxima lapide
+        if(raf.getFilePointer() + 1 == raf.length() + 1 ) break;// se chegar ao final do arquivo e nao encontrar nenhuma lapide retorna null
         lapide = raf.readChar();//ler a lapide do registro
 
         if(raf.getFilePointer() + 4 == raf.length() + 1 ) break;//se nao tiver proxima lapide retorna null
@@ -142,6 +143,8 @@ public class CRUD extends ContaBancaria{
         byte[] conta = new byte[tamanho];//cria a novaconta com o mesmo tamanho da conta anterior
 
         raf.seek(voltaParaTamanho);//volta o ponteiro para depois do arquivo
+
+        if(lapide != ' ' && id == idConta) break;//se a conta verificada ja foi apagada e o id lido do arquivo for o mesmo passado por parametro retorna null
 
         if(lapide == ' '){//verifica se a lapide esta vazia ou foi apagada
 
@@ -171,11 +174,14 @@ public class CRUD extends ContaBancaria{
       raf.seek(pos);//move o ponteiro para a proxima lapide
       pos = raf.getFilePointer();//pega o ponteiro antes de ler a lapide
 
+      if(raf.getFilePointer() + 1 == raf.length() + 1 ) break;// se chegar ao final do arquivo e nao encontrar nenhuma lapide retorna null
       char lapide = raf.readChar();// ler a lapide
 
       int tamanho = raf.readInt();// ler o tamanho do arquivo
 
       int idConta = raf.readInt();// ler o id da conta
+
+      if(lapide != ' ' && id == idConta) break;//se a conta verificada ja foi apagada e o id lido do arquivo for o mesmo passado por parametro retorna null
 
       if(lapide == ' '){//verifica se a conta foi apagada se nao
        

@@ -134,7 +134,7 @@ public class Main{
                 resultado = crud.Delete(iD);//ler os dados da conta e retorna true se a contaBancaria nao estiver apagada ainda
 
                 if(resultado) System.out.println( "Conta Apagada com Sucesso!!!");
-                else System.out.println("Infelizmente nao foi possivel apagar sua conta pois ele nao existe"); 
+                else System.out.println("Infelizmente nao foi possivel apagar sua conta ja foi apagada ou ela nao existe"); 
 
                 operacoesPossiveis();// metodo para mostrar qual sua proxima acao
                 opcao = sc.nextInt();// ler sua opcao desejada
