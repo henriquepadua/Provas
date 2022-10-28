@@ -79,7 +79,7 @@ class Lista{
         for(int i = 0; i < n - 1; i++){
             int menor = i;
             for(int j = i + 1; j < n; j++){
-                 if((array[menor].getNumeroDaBlusa().compareTo(array[j].getNumeroDaBlusa()) < 0) && (array[menor].getNome().compareTo(array[j].getNome())) > 0){
+                 if((array[menor].getNumeroDaBlusa().compareTo(array[j].getNumeroDaBlusa()) < 0)){
                     menor = j;
                 }
             }
@@ -121,6 +121,7 @@ public class uniformesFimDeAno{
        int Nlinhas = sc.nextInt();
        String leitura = "";
 
+       retorno :
        for(int i = 0; i < Nlinhas && Nlinhas != 0; i++){
           blusa = new Blusa();
 
@@ -155,6 +156,14 @@ public class uniformesFimDeAno{
           else{
 
           }
+
+          if(i+1 == Nlinhas){
+            Nlinhas = sc.nextInt();
+            if(Nlinhas != 0){
+                i = 0;
+                break retorno;
+            }
+          }
        }
 
        listaBlusasBrancas.ordenandoPeloNumeroBlusa();//ordenando as blusas pela cor branca
@@ -162,7 +171,7 @@ public class uniformesFimDeAno{
        listaBlusasVermelhas.ordenandoPeloNumeroBlusa();//ordenando as blusas pela cor
 
        listaBlusasBrancas.mostrar();//mostrar elementos inseridos na lista
-
+       
        listaBlusasVermelhas.mostrar();//mostrar elementos inseridos na lista
       
     }
