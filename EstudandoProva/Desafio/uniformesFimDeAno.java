@@ -75,11 +75,11 @@ class Lista{
           return retorno;
     }
 
-    public void ordenandoPelaCor(){
+    public void ordenandoPeloNumeroBlusa(){
         for(int i = 0; i < n - 1; i++){
             int menor = i;
             for(int j = i + 1; j < n; j++){
-                if((array[menor].getCor().compareTo(array[j].getCor()) > 0 )){
+                 if((array[menor].getNumeroDaBlusa().compareTo(array[j].getNumeroDaBlusa()) < 0) && (array[menor].getNome().compareTo(array[j].getNome())) > 0){
                     menor = j;
                 }
             }
@@ -92,6 +92,14 @@ class Lista{
         array[i] = array[j];
         array[j] = temp;
     }
+
+    public void mostrar (){
+        //System.out.print("[ ");
+        for(int i = 0; i < n; i++){
+           System.out.println(array[i].getCor() + " " + array[i].getNumeroDaBlusa() + " " + array[i].getNome() + " ");
+        }
+        //System.out.println("]");
+     }
 }
 
 
@@ -99,53 +107,23 @@ class Lista{
 
 public class uniformesFimDeAno{
     
-    /*public static void ordenacaoPorCor(String[] cor){
-        for(int j = 1; j < cor.length ;j++){
-            if(cor[j] != null){
-
-               String tmp = cor[j];
-               int k = j - 1;
-
-               while((k >= 0) && (cor[k].compareTo(tmp) > 0 )){
-                   cor[k + 1] = cor[k];
-                   k--;
-               }
-
-               cor[k + 1] = tmp;
-            }
-        }
-    }*/
-
-    /*public static void ordenacaoPorNumeroDaBlusa(String[] numeroDaBlusa){
-        for(int j = 1; j < numeroDaBlusa.length ;j++){
-            if(numeroDaBlusa[j] != null){
-
-               String tmp = numeroDaBlusa[j];
-               int k = j - 1;
-
-               while((k >= 0) && (numeroDaBlusa[k].compareTo(tmp) > 0)){
-                   numeroDaBlusa[k + 1] = numeroDaBlusa[k];
-                   k--;
-               }  
-             
-               numeroDaBlusa[k + 1] = tmp;
-            }
-        }
-    }*/
-
-
     public static void main(String[] args) throws Exception{
        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
        Scanner sc = new Scanner(System.in); 
 
-       Blusa blusa = new Blusa();
-       Lista lista = new Lista();
+       ArrayList<String> cor = new ArrayList<>();
+
+       Blusa blusa;
+
+       Lista listaBlusasBrancas = new Lista();
+       Lista listaBlusasVermelhas = new Lista();
 
        int Nlinhas = sc.nextInt();
        String leitura = "";
 
        for(int i = 0; i < Nlinhas && Nlinhas != 0; i++){
-          
+          blusa = new Blusa();
+
           blusa.setNome(br.readLine());//pegar o numero lido do teclado
           blusa.setCor(br.readLine());//pegar a cor e o numero da blusa lido do teclado
 
@@ -161,35 +139,31 @@ public class uniformesFimDeAno{
           limpar.trim();//retira os espaços em branco 
           blusa.setCor(limpar);//seta a cor sem o numero da blusa
 
-          lista.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
 
-          System.out.println(lista.pesquisar(blusa));//mostrar o retorno da pesquisa da classe
+          if(blusa.getCor().equals("branco")){
 
-          System.out.print(blusa.getCor() + " ");//mostrar o valor da cor
+            listaBlusasBrancas.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
 
-          System.out.print(blusa.getNumeroDaBlusa() + " ");//mostrar o valor do numero da blusa
+          }
+          
+          else if(blusa.getCor().equals("vermelho")){
 
-          System.out.print(blusa.getNome() + "\n");//mostra o valor do nome
+             listaBlusasVermelhas.inserirInicio(blusa);
 
+         }
+          
+          else{
+
+          }
        }
 
-      // lista.ordenandoPelaCor();
+       listaBlusasBrancas.ordenandoPeloNumeroBlusa();//ordenando as blusas pela cor branca
 
-     
-       int k = 0 ;
+       listaBlusasVermelhas.ordenandoPeloNumeroBlusa();//ordenando as blusas pela cor
 
-       System.out.println(lista.n);//mostrar as Nlinhas inseridas na lista
+       listaBlusasBrancas.mostrar();//mostrar elementos inseridos na lista
 
-       //enquanto não mostrar k nao chegar até a ultima insercao mostrar os elementos
-       while(k < lista.n || lista.array[k] != null){
-
-        //blusa.setNome("Maria joao") ;
-        if(blusa.getNome().contains("Maria joao"))
-
-        System.out.print(blusa.getNome() + " ");
-
-        k++;
-
-       }
+       listaBlusasVermelhas.mostrar();//mostrar elementos inseridos na lista
+      
     }
 }    
