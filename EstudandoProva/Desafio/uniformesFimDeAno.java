@@ -1,4 +1,8 @@
 import java.util.Scanner;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> 8077cae06f446f9fc07ce878325121296d7493aa
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -86,6 +90,7 @@ class Lista{
         } 
     }
 
+<<<<<<< HEAD
     public void ordenandoPeloNome(){
         for(int i = 0; i < n - 1; i++){
             int menor = i;
@@ -98,6 +103,8 @@ class Lista{
         }
     }
 
+=======
+>>>>>>> 8077cae06f446f9fc07ce878325121296d7493aa
     public void swap(int i,int j){
         Blusa temp = array[i];
         array[i] = array[j];
@@ -122,6 +129,7 @@ public class uniformesFimDeAno{
        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
        Scanner sc = new Scanner(System.in); 
 
+<<<<<<< HEAD
        Blusa blusa;
 
        Lista listaBlusasBrancastamanhoP = new Lista();
@@ -135,6 +143,19 @@ public class uniformesFimDeAno{
 
        int Nlinhas = sc.nextInt();
 
+=======
+       ArrayList<String> cor = new ArrayList<>();
+
+       Blusa blusa;
+
+       Lista listaBlusasBrancas = new Lista();
+       Lista listaBlusasVermelhas = new Lista();
+
+       int Nlinhas = sc.nextInt();
+       String leitura = "";
+
+       retorno :
+>>>>>>> 8077cae06f446f9fc07ce878325121296d7493aa
        for(int i = 0; i < Nlinhas && Nlinhas != 0; i++){
           blusa = new Blusa();
 
@@ -154,6 +175,7 @@ public class uniformesFimDeAno{
           blusa.setCor(limpar);//seta a cor sem o numero da blusa
 
 
+<<<<<<< HEAD
           if(blusa.getCor().equals("branco") && blusa.getNumeroDaBlusa().equals("P")){
 
             listaBlusasBrancastamanhoP.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
@@ -217,5 +239,40 @@ public class uniformesFimDeAno{
        listaBlusasVermelhastamanhoG.mostrar();//mostrar elementos         
      
        sc.close();
+=======
+          if(blusa.getCor().equals("branco")){
+
+            listaBlusasBrancas.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
+
+          }
+          
+          else if(blusa.getCor().equals("vermelho")){
+
+             listaBlusasVermelhas.inserirInicio(blusa);
+
+         }
+          
+          else{
+
+          }
+
+          if(i+1 == Nlinhas){
+            Nlinhas = sc.nextInt();
+            if(Nlinhas != 0){
+                i = 0;
+                break retorno;
+            }
+          }
+       }
+
+       listaBlusasBrancas.ordenandoPeloNumeroBlusa();//ordenando as blusas pela cor branca
+
+       listaBlusasVermelhas.ordenandoPeloNumeroBlusa();//ordenando as blusas pela cor
+
+       listaBlusasBrancas.mostrar();//mostrar elementos inseridos na lista
+       
+       listaBlusasVermelhas.mostrar();//mostrar elementos inseridos na lista
+      
+>>>>>>> 8077cae06f446f9fc07ce878325121296d7493aa
     }
 }    
