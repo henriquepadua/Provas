@@ -1,8 +1,4 @@
 import java.util.Scanner;
-<<<<<<< HEAD
-=======
-import java.util.ArrayList;
->>>>>>> 8077cae06f446f9fc07ce878325121296d7493aa
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -90,7 +86,7 @@ class Lista{
         } 
     }
 
-<<<<<<< HEAD
+
     public void ordenandoPeloNome(){
         for(int i = 0; i < n - 1; i++){
             int menor = i;
@@ -103,8 +99,7 @@ class Lista{
         }
     }
 
-=======
->>>>>>> 8077cae06f446f9fc07ce878325121296d7493aa
+
     public void swap(int i,int j){
         Blusa temp = array[i];
         array[i] = array[j];
@@ -112,15 +107,14 @@ class Lista{
     }
 
     public void mostrar (){
-        //System.out.print("[ ");
+
         for(int i = 0; i < n; i++){
-           System.out.println(array[i].getCor() + " " + array[i].getNumeroDaBlusa() + " " + array[i].getNome() + " ");
+
+            System.out.println(array[i].getCor() + " " + array[i].getNumeroDaBlusa() + " " + array[i].getNome() + " ");
+
         }
-        //System.out.println("]");
      }
 }
-
-
 
 
 public class uniformesFimDeAno{
@@ -129,7 +123,6 @@ public class uniformesFimDeAno{
        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
        Scanner sc = new Scanner(System.in); 
 
-<<<<<<< HEAD
        Blusa blusa;
 
        Lista listaBlusasBrancastamanhoP = new Lista();
@@ -143,75 +136,67 @@ public class uniformesFimDeAno{
 
        int Nlinhas = sc.nextInt();
 
-=======
-       ArrayList<String> cor = new ArrayList<>();
+       while(Nlinhas != 0){
+       
+        for(int i = 0; i < Nlinhas && Nlinhas != 0; i++){
+            blusa = new Blusa();
 
-       Blusa blusa;
+            blusa.setNome(br.readLine());//pegar o numero lido do teclado
+            blusa.setCor(br.readLine());//pegar a cor e o numero da blusa lido do teclado
 
-       Lista listaBlusasBrancas = new Lista();
-       Lista listaBlusasVermelhas = new Lista();
+            String limpar = blusa.getCor();//armazenar o valor da cor para limpar o numero da blusa
+            char Nblusa = limpar.charAt(limpar.length() -1);//armazena o numero da blusa em um char
 
-       int Nlinhas = sc.nextInt();
-       String leitura = "";
-
-       retorno :
->>>>>>> 8077cae06f446f9fc07ce878325121296d7493aa
-       for(int i = 0; i < Nlinhas && Nlinhas != 0; i++){
-          blusa = new Blusa();
-
-          blusa.setNome(br.readLine());//pegar o numero lido do teclado
-          blusa.setCor(br.readLine());//pegar a cor e o numero da blusa lido do teclado
-
-          String limpar = blusa.getCor();//armazenar o valor da cor para limpar o numero da blusa
-          char Nblusa = limpar.charAt(limpar.length() -1);//armazena o numero da blusa em um char
-
-          blusa.setNumeroDaBlusa(Character.toString(Nblusa));//transforma e seta o numero da blusa em uma String
-          
-          //limpa o numero da blusa 
-          limpar = limpar.replaceAll(" P",""); limpar = limpar.replaceAll(" G","");
-          limpar = limpar.replaceAll(" M","");
-
-          limpar.trim();//retira os espaços em branco 
-          blusa.setCor(limpar);//seta a cor sem o numero da blusa
-
-
-<<<<<<< HEAD
-          if(blusa.getCor().equals("branco") && blusa.getNumeroDaBlusa().equals("P")){
-
-            listaBlusasBrancastamanhoP.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
-
-          }
-          
-          else if(blusa.getCor().equals("branco") && blusa.getNumeroDaBlusa().equals("M")){
-          
-            listaBlusasBrancastamanhoM.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
-
-          }
-
-          else if(blusa.getCor().equals("branco") && blusa.getNumeroDaBlusa().equals("G")){
-
-            listaBlusasBrancastamanhoG.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
-
-          }
-         
-          else if(blusa.getCor().equals("vermelho") && blusa.getNumeroDaBlusa().equals("P")){
-
-            listaBlusasVermelhastamanhoP.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
-
-          }
-
-          else if(blusa.getCor().equals("vermelho") && blusa.getNumeroDaBlusa().equals("M")){
-
-            listaBlusasVermelhastamanhoM.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
-
-          }
-          
-          else if(blusa.getCor().equals("vermelho") && blusa.getNumeroDaBlusa().equals("G")){
-
-            listaBlusasVermelhastamanhoG.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
+            blusa.setNumeroDaBlusa(Character.toString(Nblusa));//transforma e seta o numero da blusa em uma String
             
-          }
-       }
+            //limpa o numero da blusa 
+            limpar = limpar.replaceAll(" P",""); limpar = limpar.replaceAll(" G","");
+            limpar = limpar.replaceAll(" M","");
+
+            limpar.trim();//retira os espaços em branco 
+            blusa.setCor(limpar);//seta a cor sem o numero da blusa
+
+
+            if(blusa.getCor().equals("branco") && blusa.getNumeroDaBlusa().equals("P")){
+
+                listaBlusasBrancastamanhoP.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
+
+            }
+            
+            else if(blusa.getCor().equals("branco") && blusa.getNumeroDaBlusa().equals("M")){
+            
+                listaBlusasBrancastamanhoM.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
+
+            }
+
+            else if(blusa.getCor().equals("branco") && blusa.getNumeroDaBlusa().equals("G")){
+
+                listaBlusasBrancastamanhoG.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
+
+            }
+            
+            else if(blusa.getCor().equals("vermelho") && blusa.getNumeroDaBlusa().equals("P")){
+
+                listaBlusasVermelhastamanhoP.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
+
+            }
+
+            else if(blusa.getCor().equals("vermelho") && blusa.getNumeroDaBlusa().equals("M")){
+
+                listaBlusasVermelhastamanhoM.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
+
+            }
+            
+            else if(blusa.getCor().equals("vermelho") && blusa.getNumeroDaBlusa().equals("G")){
+
+                listaBlusasVermelhastamanhoG.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
+                
+            }
+        }
+
+        Nlinhas = sc.nextInt();
+
+      }  
 
        listaBlusasBrancastamanhoP.ordenandoPeloNome();//ordenando os nomes da cor branca         
 
@@ -238,41 +223,7 @@ public class uniformesFimDeAno{
 
        listaBlusasVermelhastamanhoG.mostrar();//mostrar elementos         
      
-       sc.close();
-=======
-          if(blusa.getCor().equals("branco")){
+       sc.close();    
 
-            listaBlusasBrancas.inserirInicio(blusa);//inserir a classe com os atributos cor, numero da blusa e nome
-
-          }
-          
-          else if(blusa.getCor().equals("vermelho")){
-
-             listaBlusasVermelhas.inserirInicio(blusa);
-
-         }
-          
-          else{
-
-          }
-
-          if(i+1 == Nlinhas){
-            Nlinhas = sc.nextInt();
-            if(Nlinhas != 0){
-                i = 0;
-                break retorno;
-            }
-          }
-       }
-
-       listaBlusasBrancas.ordenandoPeloNumeroBlusa();//ordenando as blusas pela cor branca
-
-       listaBlusasVermelhas.ordenandoPeloNumeroBlusa();//ordenando as blusas pela cor
-
-       listaBlusasBrancas.mostrar();//mostrar elementos inseridos na lista
-       
-       listaBlusasVermelhas.mostrar();//mostrar elementos inseridos na lista
-      
->>>>>>> 8077cae06f446f9fc07ce878325121296d7493aa
     }
 }    
